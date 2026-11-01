@@ -15,6 +15,9 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 22 }
       - run: node scripts/sti.mjs
+      - name: Diagnóstico si falla
+        if: failure()
+        run: grep -o -i '.\{0,400\}SITIO.\{0,900\}' /tmp/sti.html | head -c 4000 || true
       - name: Guardar datos
         run: |
           git config user.name "github-actions[bot]"

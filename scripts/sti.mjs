@@ -34,13 +34,20 @@ export function fecha(v, pubY, pubM) {
   return null;
 }
 
+// Filas de todo el documento, tolerando tablas anidadas y celdas sin cierre.
+function filasDe(html) {
+  return html.split(/<tr\b[^>]*>/i).slice(1).map((chunk) => {
+    const fila = chunk.split(/<\/tr\s*>/i)[0];
+    return fila.split(/<t[dh]\b[^>]*>/i).slice(1).map((c) => texto(c.split(/<\/t[dh]\s*>/i)[0]));
+  }).filter((r) => r.length && r.some((c) => c));
+}
+
 export function parsear(html) {
-  const tablas = html.match(/<table[\s\S]*?<\/table>/gi) || [];
-  const tabla = tablas.find((t) => /ETA/i.test(t) && /SITIO/i.test(t));
-  if (!tabla) throw new Error('No se encontró la tabla de programación (¿cambió la página de STI?)');
-  const filas = (tabla.match(/<tr[\s\S]*?<\/tr>/gi) || [])
-    .map((tr) => [...tr.matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi)].map((m) => texto(m[1])))
-    .filter((r) => r.length);
+  const todas = filasDe(html);
+  const iS = todas.findIndex((r) => /^SITIO\b/.test(etiqueta(r[0] || '')));
+  if (iS < 1) throw new Error('No se encontró la fila SITIO');
+  // Bloque de la tabla: desde 2 filas antes de SITIO hasta la última fila con etiqueta conocida
+  const filas = todas.slice(Math.max(0, iS - 3));
 
   const todo = filas.flat().join(' | ');
   const mp = todo.match(/(\d{1,2})\s+(?:de\s+)?([A-Za-zÁÉÍÓÚáéíóúñ]+)\s+(?:de\s+)?(\d{4})/);
@@ -51,8 +58,7 @@ export function parsear(html) {
   const md = todo.match(/OBSERVADO:\s*([\d.,]+)/i);
   const dolar = md ? parseFloat(md[1].replace(',', '.')) : null;
 
-  const iSitio = filas.findIndex((r) => etiqueta(r[0]) === 'SITIO');
-  if (iSitio < 1) throw new Error('No se encontró la fila SITIO');
+  const iSitio = filas.findIndex((r) => /^SITIO\b/.test(etiqueta(r[0] || '')));
   const nombres = filas[iSitio - 1];
   const cols = nombres.map((c, i) => i).filter((i) => i > 0 && !vacio(nombres[i]));
   const naves = cols.map((i) => ({
@@ -92,6 +98,7 @@ async function main() {
   const buf = new Uint8Array(await r.arrayBuffer());
   let html = new TextDecoder('utf-8').decode(buf);
   if (html.includes('�')) html = new TextDecoder('latin1').decode(buf);
+  fs.writeFileSync('/tmp/sti.html', html);
   const d = parsear(html);
   fs.mkdirSync('data', { recursive: true });
   fs.writeFileSync(OUT, JSON.stringify({ generado: nowChile(), fuente: URL_STI, ...d }, null, 1));
