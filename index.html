@@ -64,7 +64,14 @@ section{scroll-margin-top:200px}
 .arrow{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:3px}
 .spark{width:100%;height:70px;display:block}
 .spark-l{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
-.lvl-normal{background:var(--ok-soft);color:var(--ok)} .lvl-atencion{background:var(--warn-soft);color:var(--warn)} .lvl-alerta{background:var(--imo-soft);color:var(--imo)}
+.lvl-0{background:var(--ok-soft);color:var(--ok)} .lvl-1{background:var(--warn-soft);color:var(--warn)} .lvl-2{background:var(--imo-soft);color:var(--imo)}
+.dias-box{overflow-x:auto}
+.dias{width:100%;border-collapse:collapse;font-size:12px;min-width:340px}
+.dias th{font:600 10px var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-align:right;padding:4px 6px;border-bottom:1px solid var(--line)}
+.dias td{text-align:right;padding:5px 6px;border-bottom:1px solid var(--line)}
+.dias th:first-child,.dias td:first-child,.dias th:last-child,.dias td:last-child{text-align:left}
+.dias .pill{font-size:10px;padding:2px 7px}
+.umbral-l{font-size:11px;color:var(--muted)}
 
 /* KPIs */
 .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
@@ -202,8 +209,10 @@ section{scroll-margin-top:200px}
 var CFG = {
   repoRaw: "https://raw.githubusercontent.com/LC1733/martiline-monitor-puertos/main/",
   repo: "https://github.com/LC1733/martiline-monitor-puertos",
-  // Umbrales referenciales Martiline (ajustables). No reemplazan la condición oficial de la Capitanía de Puerto.
-  umbral: { ola: [2.0, 3.0], racha: [20, 30] }
+  // Mismos umbrales que el Apps Script "Monitor de Puertos" (correos). Ola en metros; viento y ráfaga en km/h.
+  // Referenciales: no reemplazan la condición oficial de la Capitanía de Puerto.
+  umbral: { amarillo: { ola: 2.0, viento: 40, rafaga: 55 }, rojo: { ola: 3.0, viento: 55, rafaga: 75 } },
+  estadoOficial: "https://sitport.directemar.cl/#/informacion"
 };
 var S = { q:"", port:"", st:"activas", imo:false, sti:null, vap:null, cond:null, naves:[] };
 var DAY=864e5, H48=48*36e5;
@@ -262,8 +271,23 @@ function filtradas(now){
 }
 
 /* ---------- Condición de puertos ---------- */
-function nivel(v,u){ if(v==null) return null; return v>=u[1]?"alerta":v>=u[0]?"atencion":"normal"; }
-var NIV={normal:"Normal",atencion:"Atención",alerta:"Alerta"};
+/* Misma regla que el Monitor de Puertos: Rojo o Amarillo si ola, viento O ráfaga máximos del día superan el umbral. */
+var NIV=["Verde","Amarillo","Rojo"], DSEM=["dom","lun","mar","mié","jue","vie","sáb"];
+function nivelDia(d){
+  var sup=function(u){ return (d.ola!=null&&d.ola>=u.ola)||(d.viento!=null&&d.viento>=u.viento)||(d.rafaga!=null&&d.rafaga>=u.rafaga); };
+  return sup(CFG.umbral.rojo)?2:sup(CFG.umbral.amarillo)?1:0;
+}
+function porDia(horas){
+  var dias={}, mx=function(a,b){ return b==null?a:(a==null||b>a?b:a); };
+  horas.forEach(function(h){
+    var f=h.t.slice(0,10), o=dias[f]||(dias[f]={fecha:f,ola:null,periodo:null,viento:null,rafaga:null,lluvia:0});
+    if(h.ola!=null&&(o.ola==null||h.ola>o.ola)){ o.ola=h.ola; o.periodo=h.periodo; }
+    o.viento=mx(o.viento,h.viento); o.rafaga=mx(o.rafaga,h.racha); o.lluvia+=h.lluvia||0;
+  });
+  return Object.keys(dias).sort().map(function(f){ var d=dias[f]; d.nivel=nivelDia(d); return d; });
+}
+function dec(v,n){ return v==null?"–":Number(v).toLocaleString("es-CL",{minimumFractionDigits:n,maximumFractionDigits:n}); }
+function diaCorto(f){ var d=new Date(f+"T12:00:00"); return DSEM[d.getDay()]+" "+f.slice(8,10)+"-"+f.slice(5,7); }
 function flecha(deg){ if(deg==null) return ""; return '<svg class="arrow" viewBox="0 0 12 12" aria-hidden="true" style="transform:rotate('+((deg+180)%360)+'deg)"><path d="M6 1 L9.5 9 L6 7 L2.5 9 Z" fill="currentColor"/></svg>'; }
 function spark(horas, u){
   var W=300,H=70,P=4, max=Math.max(u[1]+0.5, Math.max.apply(null,horas.map(function(h){return h.ola||0;})));
@@ -280,21 +304,28 @@ function renderCond(){
   var el=document.getElementById("cond"), c=S.cond;
   if(!c || !c.puertos){ el.innerHTML='<div class="empty" style="grid-column:1/-1">Sin lectura todavía. La condición se actualiza automáticamente cada 3 horas.</div>'; return; }
   document.getElementById("cond-stamp").textContent="Pronóstico actualizado "+fmtT(c.generado)+" · "+hace(c.generado);
-  var now=Date.now();
+  var now=Date.now(), U=CFG.umbral, lineas=[U.amarillo.ola,U.rojo.ola];
+  if(c.unidad_viento!=="km/h"){ el.innerHTML='<div class="empty" style="grid-column:1/-1">Actualizando la condición con los criterios del Monitor de Puertos. Recarga en unos minutos.</div>'; return; }
+  var hoy=new Intl.DateTimeFormat("en-CA",{timeZone:"America/Santiago"}).format(new Date());
   el.innerHTML=c.puertos.filter(function(p){return !S.port||p.puerto===S.port;}).map(function(p){
     var futuras=p.horas.filter(function(h){return D(h.t).getTime()>=now-36e5;});
-    var a=futuras[0]||p.horas[p.horas.length-1], h24=futuras.slice(0,24), h48=futuras.slice(0,48);
-    var maxOla=Math.max.apply(null,h24.map(function(h){return h.ola||0;})), maxRacha=Math.max.apply(null,h24.map(function(h){return h.racha||0;}));
-    var nv=[nivel(maxOla,CFG.umbral.ola),nivel(maxRacha,CFG.umbral.racha)], lv=nv.indexOf("alerta")>=0?"alerta":nv.indexOf("atencion")>=0?"atencion":"normal";
-    return '<article class="port"><header><h3>'+esc(p.puerto)+'</h3><span class="pill lvl-'+lv+'">'+NIV[lv]+' próximas 24 h</span></header>'+
+    var a=futuras[0]||p.horas[p.horas.length-1], h48=futuras.slice(0,48);
+    var dias=porDia(p.horas).filter(function(d){return d.fecha>=hoy;}), dHoy=dias[0]||{nivel:0};
+    var peor=dias.reduce(function(x,d){return d.nivel>x.nivel?d:x;},{nivel:0});
+    var etiqueta=peor.nivel>0? NIV[peor.nivel]+" el "+diaCorto(peor.fecha) : "Verde, sin alertas";
+    return '<article class="port"><header><h3>'+esc(p.puerto)+'</h3><span class="pill lvl-'+peor.nivel+'">'+etiqueta+'</span></header>'+
       '<div class="meters">'+
-        '<div class="meter"><small>Ola ahora</small><b class="num">'+(a.ola!=null?a.ola.toLocaleString("es-CL"):"–")+'<i>m</i></b><span>'+flecha(a.dir_ola)+(a.periodo!=null?a.periodo.toLocaleString("es-CL")+" s":"")+'</span></div>'+
-        '<div class="meter"><small>Viento</small><b class="num">'+(a.viento!=null?Math.round(a.viento):"–")+'<i>kn</i></b><span>'+flecha(a.dir_viento)+'racha '+(a.racha!=null?Math.round(a.racha):"–")+' kn</span></div>'+
-        '<div class="meter"><small>Ola máx. 24 h</small><b class="num">'+maxOla.toLocaleString("es-CL")+'<i>m</i></b><span>'+NIV[nivel(maxOla,CFG.umbral.ola)]+'</span></div>'+
-        '<div class="meter"><small>Racha máx. 24 h</small><b class="num">'+Math.round(maxRacha)+'<i>kn</i></b><span>'+NIV[nivel(maxRacha,CFG.umbral.racha)]+'</span></div>'+
-      '</div>'+(h48.length>2? spark(h48,CFG.umbral.ola)+'<div class="spark-l"><span>Altura de ola, próximas 48 h</span><span>Líneas: '+CFG.umbral.ola[0].toLocaleString("es-CL")+' m y '+CFG.umbral.ola[1].toLocaleString("es-CL")+' m</span></div>':"")+
+        '<div class="meter"><small>Ola ahora</small><b class="num">'+dec(a.ola,1)+'<i>m</i></b><span>'+flecha(a.dir_ola)+(a.periodo!=null?dec(a.periodo,0)+" s":"")+'</span></div>'+
+        '<div class="meter"><small>Viento ahora</small><b class="num">'+dec(a.viento,0)+'<i>km/h</i></b><span>'+flecha(a.dir_viento)+'ráfaga '+dec(a.racha,0)+' km/h</span></div>'+
+        '<div class="meter"><small>Ola máx. hoy</small><b class="num">'+dec(dHoy.ola,1)+'<i>m</i></b><span>'+(dHoy.periodo!=null?"periodo "+dec(dHoy.periodo,0)+" s":"")+'</span></div>'+
+        '<div class="meter"><small>Ráfaga máx. hoy</small><b class="num">'+dec(dHoy.rafaga,0)+'<i>km/h</i></b><span>viento máx. '+dec(dHoy.viento,0)+' km/h</span></div>'+
+      '</div>'+
+      '<div class="dias-box"><table class="dias"><thead><tr><th>Día</th><th>Ola máx (m)</th><th>Viento máx (km/h)</th><th>Ráfaga máx (km/h)</th><th>Lluvia (mm)</th><th>Estado</th></tr></thead><tbody>'+
+      dias.map(function(d){ return '<tr><td>'+diaCorto(d.fecha)+'</td><td class="num">'+dec(d.ola,1)+'</td><td class="num">'+dec(d.viento,0)+'</td><td class="num">'+dec(d.rafaga,0)+'</td><td class="num">'+dec(d.lluvia,1)+'</td><td><span class="pill lvl-'+d.nivel+'">'+NIV[d.nivel]+'</span></td></tr>'; }).join("")+
+      '</tbody></table></div>'+
+      (h48.length>2? spark(h48,lineas)+'<div class="spark-l"><span>Altura de ola, próximas 48 h</span><span>Líneas: amarillo '+dec(lineas[0],1)+' m · rojo '+dec(lineas[1],1)+' m</span></div>':"")+
     '</article>';
-  }).join("");
+  }).join("")+'<p class="umbral-l" style="grid-column:1/-1">Mismos criterios que los avisos por correo del Monitor de Puertos. Amarillo: ola ≥ '+dec(U.amarillo.ola,1)+' m, viento ≥ '+U.amarillo.viento+' km/h o ráfaga ≥ '+U.amarillo.rafaga+' km/h. Rojo: ola ≥ '+dec(U.rojo.ola,1)+' m, viento ≥ '+U.rojo.viento+' km/h o ráfaga ≥ '+U.rojo.rafaga+' km/h. Estado oficial de puertos: <a href="'+CFG.estadoOficial+'" target="_blank" rel="noopener">SITPORT – DIRECTEMAR</a>.</p>';
 }
 
 /* ---------- Resumen ---------- */
@@ -409,7 +440,7 @@ function renderSources(){
     : fuente("Puerto Valparaíso · TPS / TPV", null, "Aún no hay datos. Sube el PDF de planificación a la carpeta valparaiso."));
   h.push(c ? fuente("Condición de puertos", now-D(c.generado)<7*36e5,
       "Pronóstico de oleaje y viento frente a cada puerto ("+esc(c.fuente)+"), actualizado cada 3 horas. Referencial: la condición oficial la determina la Capitanía de Puerto.",
-      '<a href="https://www.directemar.cl" target="_blank" rel="noopener">Autoridad Marítima (Directemar)</a>')
+      '<a href="'+CFG.estadoOficial+'" target="_blank" rel="noopener">Estado oficial: SITPORT – DIRECTEMAR</a>')
     : fuente("Condición de puertos", null, "Sin lectura todavía. Se actualiza cada 3 horas."));
   document.getElementById("sources").innerHTML=h.join("");
 }
