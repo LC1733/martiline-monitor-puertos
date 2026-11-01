@@ -1,0 +1,7 @@
+{
+  "name": "martiline-monitor-puertos",
+  "private": true,
+  "type": "module",
+  "description": "Monitor de Puertos Martiline: naves STI San Antonio, Puerto Valparaíso y condición de oleaje y viento.",
+  "dependencies": { "pdfjs-dist": "4.10.38" }
+}

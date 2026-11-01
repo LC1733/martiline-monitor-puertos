@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Martiline Monitor Puertos</title>
+<meta name="description" content="Programación de naves STI San Antonio y Puerto Valparaíso, con condición de oleaje y viento. Uso interno Martiline.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: barra fija (búsqueda + filtros) · condición de puertos · resumen · ocupación de sitios · tarjetas · fuentes */
+:root{
+  --bg:#EDF1F4; --surface:#FFFFFF; --surface-2:#F5F7F9; --ink:#0F1D2C; --muted:#5A6B7D; --line:#D7DFE6;
+  --accent:#D9561A; --accent-soft:#FBE7DC; --ok:#1E8A5A; --ok-soft:#DDF3E8; --warn:#A86B12; --warn-soft:#FAEFD9;
+  --done:#7A8897; --done-soft:#E9EDF1; --imo:#C42B2B; --imo-soft:#FCE8E8; --bar:#2F5D8A; --bar-2:#86A6C6; --sea:#2B7A9B;
+  --f-display:"Barlow Condensed","Arial Narrow",Arial,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px; color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root{
+  --bg:#0A131D; --surface:#101C29; --surface-2:#152436; --ink:#E5ECF2; --muted:#8FA2B6; --line:#22344A;
+  --accent:#FF7B3F; --accent-soft:#3A2116; --ok:#3CC98B; --ok-soft:#123227; --warn:#E3AA4E; --warn-soft:#352812;
+  --done:#6E7F91; --done-soft:#1A2734; --imo:#FF6B6B; --imo-soft:#3A1719; --bar:#5C8FC2; --bar-2:#2E4A68; --sea:#5BB4D6; color-scheme:dark}}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:14px;line-height:1.45;padding-top:env(safe-area-inset-top,0px)}
+.wrap{max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.top{position:sticky;top:0;z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;flex-direction:column;gap:12px;padding-block:14px}
+.brand{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand h1{font-family:var(--f-display);font-weight:700;font-size:26px;letter-spacing:.01em;margin:0;text-transform:uppercase;line-height:1}
+.brand h1 span{color:var(--accent)}
+.stamp{font-size:12px;color:var(--muted)}
+.search{position:relative;display:block}
+.search input{width:100%;font:500 16px var(--f-body);color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px 12px 40px}
+.search input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.search svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:var(--muted);fill:none;stroke-width:2}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font:500 13px var(--f-body);color:var(--ink);background:var(--surface-2);border:1px solid var(--line);border-radius:999px;padding:6px 12px;cursor:pointer}
+.chip:hover{border-color:var(--muted)}
+.chip:focus-visible,.g-bar:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.chip.imo[aria-pressed="true"]{background:var(--imo);border-color:var(--imo);color:#fff}
+.sep{width:1px;background:var(--line);margin:2px}
+main .wrap{display:flex;flex-direction:column;gap:24px;padding-block:20px 40px}
+h2{font-family:var(--f-display);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0 0 10px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+h2 small{font:400 12px var(--f-body);letter-spacing:0;text-transform:none}
+section{scroll-margin-top:200px}
+
+/* Condición */
+.cond{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (max-width:720px){.cond{grid-template-columns:1fr}}
+.port{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.port header{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.port h3{font-family:var(--f-display);font-size:22px;text-transform:uppercase;margin:0;line-height:1}
+.meters{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.meter{display:flex;flex-direction:column}
+.meter small{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.meter b{font-family:var(--f-display);font-size:28px;line-height:1.05}
+.meter b i{font-style:normal;font-size:14px;color:var(--muted);margin-left:2px}
+.meter span{font-size:11px;color:var(--muted)}
+.arrow{display:inline-block;width:12px;height:12px;vertical-align:-1px;margin-right:3px}
+.spark{width:100%;height:70px;display:block}
+.spark-l{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.lvl-normal{background:var(--ok-soft);color:var(--ok)} .lvl-atencion{background:var(--warn-soft);color:var(--warn)} .lvl-alerta{background:var(--imo-soft);color:var(--imo)}
+
+/* KPIs */
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:2px}
+.kpi b{font-family:var(--f-display);font-size:30px;font-weight:700;line-height:1.05}
+.kpi small{color:var(--muted);font-size:12px}
+.kpi.k-ok b{color:var(--ok)} .kpi.k-imo b{color:var(--imo)} .kpi.k-next b{color:var(--accent)}
+@media (max-width:640px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Gantt */
+.gantt-box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.gantt-scroll{overflow-x:auto}
+.gantt{min-width:680px;position:relative}
+.g-axis{display:grid;margin-left:84px;border-bottom:1px solid var(--line);font-size:11px;color:var(--muted)}
+.g-axis div{padding:0 0 6px 4px;border-left:1px solid var(--line)}
+.g-axis div.today{color:var(--accent);font-weight:600}
+.g-port{font:600 11px var(--f-body);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:8px 0 2px}
+.g-row{display:flex;align-items:center;height:40px;border-bottom:1px dashed var(--line)}
+.g-label{width:84px;flex:none;font:600 12px var(--f-body);color:var(--muted)}
+.g-track{position:relative;flex:1;height:100%}
+.g-bar{position:absolute;top:7px;height:26px;border-radius:6px;background:var(--bar);color:#fff;font:600 12px var(--f-body);padding:0 8px;display:flex;align-items:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;border:0;text-align:left}
+.g-bar.done{background:var(--bar-2);color:var(--ink)}
+.g-bar.next{background:var(--accent)}
+.g-bar.wait{background:transparent;border:1.5px dashed var(--bar);color:var(--ink)}
+.g-bar.open{border-top-right-radius:0;border-bottom-right-radius:0;-webkit-mask-image:linear-gradient(90deg,#000 80%,transparent);mask-image:linear-gradient(90deg,#000 80%,transparent)}
+.g-now{position:absolute;top:0;bottom:0;width:2px;background:var(--accent);pointer-events:none}
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;font-size:12px;color:var(--muted)}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-2px}
+
+/* Tarjetas */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:12px;align-items:start}
+@media (max-width:420px){.cards{grid-template-columns:1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;display:flex;flex-direction:column;gap:12px;min-width:0;scroll-margin-top:200px}
+.card.flash{outline:2px solid var(--accent)}
+.c-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.c-name{font-family:var(--f-display);font-weight:700;font-size:22px;line-height:1.05;text-transform:uppercase;margin:0;overflow-wrap:anywhere}
+.c-where{font-size:12px;color:var(--muted);margin-top:3px}
+.pill{font:600 11px var(--f-body);letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:4px 9px;white-space:nowrap}
+.st-faena{background:var(--ok-soft);color:var(--ok)} .st-proxima{background:var(--accent-soft);color:var(--accent)}
+.st-programada,.st-anunciada{background:var(--warn-soft);color:var(--warn)} .st-terminada{background:var(--done-soft);color:var(--done)}
+.st-gira{background:var(--surface-2);color:var(--sea);border:1px solid var(--line)}
+.times{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.times div{display:flex;flex-direction:column;gap:1px;min-width:0}
+.times small{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.times span{font-size:12.5px}
+.prog{height:6px;background:var(--surface-2);border-radius:99px;overflow:hidden;border:1px solid var(--line)}
+.prog i{display:block;height:100%;background:var(--ok)}
+.prog-l{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-top:4px}
+.moves{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.mv{background:var(--surface-2);border-radius:8px;padding:9px 10px}
+.mv h4{margin:0 0 6px;font:600 11px var(--f-body);letter-spacing:.07em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between}
+.mv h4 .num{color:var(--ink);font-size:13px;letter-spacing:0}
+.mv dl{margin:0;display:grid;grid-template-columns:1fr auto;gap:2px 8px;font-size:12px}
+.mv dt{color:var(--muted)} .mv dd{margin:0;text-align:right}
+.mv dd.hot{color:var(--imo);font-weight:600}
+.imo-note{display:flex;gap:10px;align-items:center;background:var(--imo-soft);color:var(--imo);border-radius:8px;padding:8px 10px;font-size:12px}
+.diamond{flex:none;width:22px;height:22px;transform:rotate(45deg);border:2px solid var(--imo);border-radius:3px;display:grid;place-items:center}
+.diamond b{transform:rotate(-45deg);font:700 10px var(--f-body)}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--r);padding:24px;text-align:center;color:var(--muted)}
+.more{justify-self:center;grid-column:1/-1}
+
+/* Fuentes */
+.sources{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:820px){.sources{grid-template-columns:1fr}}
+.src{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.src header{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.src p{margin:0;font-size:12.5px;color:var(--muted)}
+.src a{color:var(--accent)}
+.foot{font-size:12px;color:var(--muted);line-height:1.6;max-width:90ch}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <h1>Martiline <span>Monitor Puertos</span></h1>
+      <div class="stamp" id="stamp">Cargando datos…</div>
+    </div>
+    <label class="search" for="q">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="Buscar nave, agencia, terminal o sitio…" autocomplete="off" aria-label="Buscar nave">
+    </label>
+    <div class="filters" role="toolbar" aria-label="Filtros">
+      <button class="chip" id="p-all" data-port="" aria-pressed="true">Todos los puertos</button>
+      <button class="chip" id="p-sai" data-port="San Antonio" aria-pressed="false">San Antonio</button>
+      <button class="chip" id="p-vap" data-port="Valparaíso" aria-pressed="false">Valparaíso</button>
+      <span class="sep" aria-hidden="true"></span>
+      <button class="chip" id="s-act" data-st="activas" aria-pressed="true">Activas y próximas 7 días</button>
+      <button class="chip" id="s-all" data-st="todas" aria-pressed="false">Ver todo</button>
+      <span class="sep" aria-hidden="true"></span>
+      <button class="chip imo" id="f-imo" aria-pressed="false">Solo con IMO</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <section id="condicion" aria-labelledby="h-cond">
+      <h2 id="h-cond">Condición de puertos <small id="cond-stamp"></small></h2>
+      <div class="cond" id="cond"><div class="empty">Cargando condición de oleaje y viento…</div></div>
+    </section>
+
+    <section aria-label="Resumen"><div class="kpis" id="kpis"></div></section>
+
+    <section aria-labelledby="h-gantt">
+      <h2 id="h-gantt">Ocupación de sitios</h2>
+      <div class="gantt-box">
+        <div class="gantt-scroll"><div class="gantt" id="gantt"></div></div>
+        <div class="legend">
+          <span><i style="background:var(--bar)"></i>En faena</span>
+          <span><i style="background:var(--accent)"></i>Próxima (48 h)</span>
+          <span><i style="border:1.5px dashed var(--bar)"></i>Programada</span>
+          <span><i style="background:var(--bar-2)"></i>Terminada</span>
+          <span>Línea naranja: ahora</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="naves" aria-labelledby="list-title">
+      <h2 id="list-title">Naves</h2>
+      <div class="cards" id="cards"><div class="empty">Cargando programación de naves…</div></div>
+    </section>
+
+    <section aria-labelledby="h-src">
+      <h2 id="h-src">Fuentes de datos</h2>
+      <div class="sources" id="sources"></div>
+    </section>
+
+    <p class="foot">Información operativa de uso interno de Martiline, obtenida de la programación que publica cada terminal y de pronósticos meteorológicos. Los horarios son programación del terminal y pueden cambiar sin aviso: confirmar con la naviera o el terminal antes de comprometer plazos con clientes. La condición oficial de puerto (abierto, cerrado o restringido) la determina la Capitanía de Puerto de la Autoridad Marítima; los niveles de oleaje y viento de este panel son referenciales. No se capturan ni publican los datos de contacto personal que publican los terminales.</p>
+  </div>
+</main>
+
+<script>
+var CFG = {
+  repoRaw: "https://raw.githubusercontent.com/LC1733/martiline-monitor-puertos/main/",
+  repo: "https://github.com/LC1733/martiline-monitor-puertos",
+  // Umbrales referenciales Martiline (ajustables). No reemplazan la condición oficial de la Capitanía de Puerto.
+  umbral: { ola: [2.0, 3.0], racha: [20, 30] }
+};
+var S = { q:"", port:"", st:"activas", imo:false, sti:null, vap:null, cond:null, naves:[] };
+var DAY=864e5, H48=48*36e5;
+var D=function(s){ return new Date(s); };
+function fmtN(n){ return (n||0).toLocaleString("es-CL"); }
+function fmtT(s){ if(!s) return "–"; var d=D(s); return d.toLocaleDateString("es-CL",{day:"2-digit",month:"2-digit",timeZone:"America/Santiago"})+" "+d.toLocaleTimeString("es-CL",{hour:"2-digit",minute:"2-digit",hour12:false,timeZone:"America/Santiago"}); }
+function norm(s){ return String(s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase(); }
+function esc(s){ return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c];}); }
+function hace(s){ var h=Math.round((Date.now()-D(s))/36e5); return h<1?"hace minutos":h<48?"hace "+h+" h":"hace "+Math.round(h/24)+" días"; }
+
+function cargar(nombre){
+  var urls = location.hostname.slice(-9)==="github.io" ? [CFG.repoRaw+"data/"+nombre, "data/"+nombre] : ["data/"+nombre];
+  var intento=function(i){
+    if(i>=urls.length) return Promise.resolve(null);
+    return fetch(urls[i]+"?t="+Date.now(),{cache:"no-store"}).then(function(r){ return r.ok? r.json() : intento(i+1); }).catch(function(){ return intento(i+1); });
+  };
+  return intento(0);
+}
+
+/* ---------- Estado de cada nave ---------- */
+function estado(n, now){
+  if(n.tipo==="gira") return {k:"gira",t:"A la gira"};
+  if(!n.inicio){
+    var ps=D(n.atraque||n.eta).getTime();
+    if(now>ps+2*DAY) return {k:"terminada",t:"Anuncio vencido"};
+    if(now>ps) return {k:"anunciada",t:"Sin sitio asignado"};
+    if(ps-now<=H48) return {k:"proxima",t:"Próxima"};
+    return {k:"anunciada",t:"Anunciada"};
+  }
+  var ini=D(n.inicio).getTime(), fin=n.termino?D(n.termino).getTime():null;
+  if(fin && now>fin) return {k:"terminada",t:"Terminada"};
+  if(now>=ini) return {k:"faena",t:n.puerto==="Valparaíso"?"Atracada":"En faena"};
+  if(ini-now<=H48) return {k:"proxima",t:"Próxima"};
+  return {k:"programada",t:"Programada"};
+}
+function imoTotal(n){ return n.descarga ? (n.descarga.imo||0)+(n.embarque.imo||0) : 0; }
+function fechaRef(n){ return D(n.inicio||n.atraque||n.eta).getTime(); }
+
+function filtradas(now){
+  var q=norm(S.q);
+  return S.naves.filter(function(n){
+    if(S.port && n.puerto!==S.port) return false;
+    if(S.imo && !imoTotal(n)) return false;
+    var st=estado(n,now).k;
+    if(S.st==="activas"){
+      if(st==="terminada") return false;
+      if(st!=="gira" && st!=="faena" && fechaRef(n)-now>7*DAY) return false;
+    }
+    if(q && norm([n.nave,n.puerto,n.terminal,n.agencia,"sitio "+n.sitio].join(" ")).indexOf(q)<0) return false;
+    return true;
+  }).sort(function(a,b){
+    var o={faena:0,proxima:1,programada:2,anunciada:3,gira:4,terminada:5};
+    var sa=o[estado(a,now).k], sb=o[estado(b,now).k];
+    return sa!==sb? sa-sb : fechaRef(a)-fechaRef(b);
+  });
+}
+
+/* ---------- Condición de puertos ---------- */
+function nivel(v,u){ if(v==null) return null; return v>=u[1]?"alerta":v>=u[0]?"atencion":"normal"; }
+var NIV={normal:"Normal",atencion:"Atención",alerta:"Alerta"};
+function flecha(deg){ if(deg==null) return ""; return '<svg class="arrow" viewBox="0 0 12 12" aria-hidden="true" style="transform:rotate('+((deg+180)%360)+'deg)"><path d="M6 1 L9.5 9 L6 7 L2.5 9 Z" fill="currentColor"/></svg>'; }
+function spark(horas, u){
+  var W=300,H=70,P=4, max=Math.max(u[1]+0.5, Math.max.apply(null,horas.map(function(h){return h.ola||0;})));
+  var x=function(i){return P+i*(W-2*P)/(horas.length-1);}, y=function(v){return H-P-(v/max)*(H-2*P);};
+  var pts=horas.map(function(h,i){return x(i).toFixed(1)+","+y(h.ola||0).toFixed(1);}).join(" ");
+  var area="M"+x(0)+","+(H-P)+" L"+pts.replace(/ /g," L")+" L"+x(horas.length-1)+","+(H-P)+" Z";
+  return '<svg class="spark" viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="none" role="img" aria-label="Altura de ola próximas 48 horas">'+
+    '<line x1="0" x2="'+W+'" y1="'+y(u[0])+'" y2="'+y(u[0])+'" stroke="var(--warn)" stroke-dasharray="3 3" stroke-width="1"/>'+
+    '<line x1="0" x2="'+W+'" y1="'+y(u[1])+'" y2="'+y(u[1])+'" stroke="var(--imo)" stroke-dasharray="3 3" stroke-width="1"/>'+
+    '<path d="'+area+'" fill="var(--sea)" fill-opacity=".15"/>'+
+    '<polyline points="'+pts+'" fill="none" stroke="var(--sea)" stroke-width="2" vector-effect="non-scaling-stroke"/></svg>';
+}
+function renderCond(){
+  var el=document.getElementById("cond"), c=S.cond;
+  if(!c || !c.puertos){ el.innerHTML='<div class="empty" style="grid-column:1/-1">Sin lectura todavía. La condición se actualiza automáticamente cada 3 horas.</div>'; return; }
+  document.getElementById("cond-stamp").textContent="Pronóstico actualizado "+fmtT(c.generado)+" · "+hace(c.generado);
+  var now=Date.now();
+  el.innerHTML=c.puertos.filter(function(p){return !S.port||p.puerto===S.port;}).map(function(p){
+    var futuras=p.horas.filter(function(h){return D(h.t).getTime()>=now-36e5;});
+    var a=futuras[0]||p.horas[p.horas.length-1], h24=futuras.slice(0,24), h48=futuras.slice(0,48);
+    var maxOla=Math.max.apply(null,h24.map(function(h){return h.ola||0;})), maxRacha=Math.max.apply(null,h24.map(function(h){return h.racha||0;}));
+    var nv=[nivel(maxOla,CFG.umbral.ola),nivel(maxRacha,CFG.umbral.racha)], lv=nv.indexOf("alerta")>=0?"alerta":nv.indexOf("atencion")>=0?"atencion":"normal";
+    return '<article class="port"><header><h3>'+esc(p.puerto)+'</h3><span class="pill lvl-'+lv+'">'+NIV[lv]+' próximas 24 h</span></header>'+
+      '<div class="meters">'+
+        '<div class="meter"><small>Ola ahora</small><b class="num">'+(a.ola!=null?a.ola.toLocaleString("es-CL"):"–")+'<i>m</i></b><span>'+flecha(a.dir_ola)+(a.periodo!=null?a.periodo.toLocaleString("es-CL")+" s":"")+'</span></div>'+
+        '<div class="meter"><small>Viento</small><b class="num">'+(a.viento!=null?Math.round(a.viento):"–")+'<i>kn</i></b><span>'+flecha(a.dir_viento)+'racha '+(a.racha!=null?Math.round(a.racha):"–")+' kn</span></div>'+
+        '<div class="meter"><small>Ola máx. 24 h</small><b class="num">'+maxOla.toLocaleString("es-CL")+'<i>m</i></b><span>'+NIV[nivel(maxOla,CFG.umbral.ola)]+'</span></div>'+
+        '<div class="meter"><small>Racha máx. 24 h</small><b class="num">'+Math.round(maxRacha)+'<i>kn</i></b><span>'+NIV[nivel(maxRacha,CFG.umbral.racha)]+'</span></div>'+
+      '</div>'+(h48.length>2? spark(h48,CFG.umbral.ola)+'<div class="spark-l"><span>Altura de ola, próximas 48 h</span><span>Líneas: '+CFG.umbral.ola[0].toLocaleString("es-CL")+' m y '+CFG.umbral.ola[1].toLocaleString("es-CL")+' m</span></div>':"")+
+    '</article>';
+  }).join("");
+}
+
+/* ---------- Resumen ---------- */
+function renderKpis(now){
+  var all=S.naves.filter(function(n){return !S.port||n.puerto===S.port;});
+  var cnt=function(k){return all.filter(function(n){return estado(n,now).k===k;}).length;};
+  var act=all.filter(function(n){var k=estado(n,now).k; return k==="faena"||k==="proxima";});
+  var imo=act.reduce(function(s,n){return s+imoTotal(n);},0);
+  var cont=act.reduce(function(s,n){ return s+(n.descarga? n.descarga.total+n.embarque.total : (n.carga? (n.carga.cnt_impo||0)+(n.carga.cnt_expo||0):0)); },0);
+  document.getElementById("kpis").innerHTML=
+    '<div class="kpi k-ok"><small>Atracadas / en faena</small><b class="num">'+cnt("faena")+'</b><small>naves ahora</small></div>'+
+    '<div class="kpi k-next"><small>Próximas 48 h</small><b class="num">'+cnt("proxima")+'</b><small>por atracar</small></div>'+
+    '<div class="kpi k-imo"><small>Unidades IMO</small><b class="num">'+fmtN(imo)+'</b><small>STI, naves activas y próximas</small></div>'+
+    '<div class="kpi"><small>Movimientos</small><b class="num">'+fmtN(cont)+'</b><small>contenedores activos y próximos</small></div>';
+}
+
+/* ---------- Ocupación de sitios ---------- */
+function renderGantt(now){
+  var el=document.getElementById("gantt");
+  var naves=S.naves.filter(function(n){return n.sitio && n.inicio && (!S.port||n.puerto===S.port);});
+  if(!naves.length){ el.innerHTML='<div class="empty">Sin naves con sitio asignado.</div>'; return; }
+  var start=new Date(now-2*DAY); start.setHours(0,0,0,0);
+  var end=new Date(now+4*DAY); end.setHours(24,0,0,0);
+  var span=end-start, days=Math.round(span/DAY);
+  var pos=function(t){ return Math.max(0,Math.min(100,(t-start)/span*100)); };
+  var today=new Date(now).toDateString(), axis='<div class="g-axis" style="grid-template-columns:repeat('+days+',1fr)">';
+  for(var i=0;i<days;i++){ var d=new Date(start.getTime()+i*DAY); axis+='<div class="'+(d.toDateString()===today?"today":"")+'">'+d.toLocaleDateString("es-CL",{weekday:"short",day:"2-digit"})+'</div>'; }
+  axis+='</div>';
+  var html=axis, puertos=["San Antonio","Valparaíso"];
+  puertos.forEach(function(p){
+    var dePuerto=naves.filter(function(n){return n.puerto===p;}); if(!dePuerto.length) return;
+    html+='<div class="g-port">'+esc(p)+'</div>';
+    var keys={}; dePuerto.forEach(function(n){ keys[n.terminal+"|"+("0"+n.sitio).slice(-2)]=1; });
+    Object.keys(keys).sort().forEach(function(k){
+      var parts=k.split("|"), bars="";
+      dePuerto.forEach(function(n){
+        if(n.terminal+"|"+("0"+n.sitio).slice(-2)!==k) return;
+        var a=D(n.inicio).getTime(), b=n.termino?D(n.termino).getTime():end.getTime();
+        if(b<start.getTime()||a>end.getTime()) return;
+        var st=estado(n,now).k, cls=(st==="terminada"?"done":st==="proxima"?"next":st==="programada"?"wait":"")+(n.termino?"":" open");
+        var l=pos(a), w=Math.max(pos(b)-l,1.2);
+        bars+='<button class="g-bar '+cls+'" data-id="'+S.naves.indexOf(n)+'" style="left:'+l+'%;width:'+w+'%" title="'+esc(n.nave)+' · '+fmtT(n.inicio)+' → '+(n.termino?fmtT(n.termino):"sin zarpe en la planificación")+'">'+esc(n.nave)+'</button>';
+      });
+      html+='<div class="g-row"><div class="g-label">'+esc(parts[0])+' S'+(+parts[1])+'</div><div class="g-track">'+bars+'<div class="g-now" style="left:'+pos(now)+'%"></div></div></div>';
+    });
+  });
+  el.innerHTML=html;
+}
+
+/* ---------- Tarjetas ---------- */
+function bloque(t,total,filas){
+  return '<div class="mv"><h4>'+t+(total!=null?'<span class="num">'+fmtN(total)+'</span>':'')+'</h4><dl>'+filas.map(function(f){
+    return '<dt>'+f[0]+'</dt><dd class="num'+(f[2]?" hot":"")+'">'+(f[1]?fmtN(f[1]):"–")+'</dd>'; }).join("")+'</dl></div>';
+}
+var MAX_CARDS=60, verMas=false;
+function renderCards(now){
+  if(!S.naves.length) return;
+  var list=filtradas(now), el=document.getElementById("cards");
+  document.getElementById("list-title").innerHTML='Naves <small>'+list.length+' resultado'+(list.length===1?"":"s")+'</small>';
+  if(!list.length){ el.innerHTML='<div class="empty">No hay naves que coincidan. Prueba otro nombre o usa "Ver todo".</div>'; return; }
+  var vis=verMas?list:list.slice(0,MAX_CARDS);
+  el.innerHTML=vis.map(function(n){
+    var st=estado(n,now), id=S.naves.indexOf(n), imo=imoTotal(n), t="", body="", prog="";
+    var donde=[n.puerto, n.terminal, n.sitio?"Sitio "+n.sitio:"", n.agencia].filter(Boolean).map(esc).join(" · ");
+    if(n.puerto==="San Antonio"){
+      t=[["ETA",n.eta],["Atraque",n.atraque],["Inicio",n.inicio],["Término",n.termino]];
+      body='<div class="moves">'+bloque("Descarga",n.descarga.total,[["Reefer full",n.descarga.reefer],["Vacíos (MTY)",n.descarga.mty],["IMO",n.descarga.imo,n.descarga.imo>0]])+
+        bloque("Embarque",n.embarque.total,[["Reefer full",n.embarque.reefer],["Vacíos (MTY)",n.embarque.mty],["IMO",n.embarque.imo,n.embarque.imo>0]])+'</div>';
+    } else {
+      t = n.tipo==="atraque" ? [["Anuncio",n.eta],["Atraque",n.atracadaAntes?null:n.inicio],["Zarpe",n.termino],["Eslora",null]]
+        : n.tipo==="anuncio" ? [["Anuncio",n.eta],["Pide sitio",n.atraque]] : [["Anuncio",n.eta]];
+      var c=n.carga;
+      if(c){
+        var bl=[];
+        if(c.cnt_impo||c.cnt_expo) bl.push(bloque("Contenedores",null,[["Importación",c.cnt_impo],["Exportación",c.cnt_expo]]));
+        if(c.ton_impo||c.ton_expo) bl.push(bloque("Toneladas",null,[["Importación",c.ton_impo],["Exportación",c.ton_expo]]));
+        if(c.vehiculos||c.pallets) bl.push(bloque("Otros",null,[["Vehículos",c.vehiculos],["Pallets",c.pallets]]));
+        if(bl.length) body='<div class="moves">'+bl.join("")+'</div>';
+      }
+    }
+    var times='<div class="times">'+t.map(function(x){
+      var v = x[0]==="Eslora" ? esc((n.loa||"").replace(/^LOA\s*/,"").split(" ")[0] ? (n.loa||"").replace(/^LOA\s*/,"").split(" ")[0]+" m" : "–")
+        : x[0]==="Atraque" && n.atracadaAntes ? "Antes del "+fmtT(n.inicio).slice(0,5) : fmtT(x[1]);
+      return '<div><small>'+x[0]+'</small><span class="num">'+v+'</span></div>'; }).join("")+'</div>';
+    if(st.k==="faena" && n.termino){ var ini=D(n.inicio).getTime(), fin=D(n.termino).getTime(), p=Math.round((now-ini)/(fin-ini)*100), h=Math.round((fin-now)/36e5);
+      prog='<div><div class="prog"><i style="width:'+p+'%"></i></div><div class="prog-l"><span>'+(n.puerto==="San Antonio"?"Faena ":"Estadía ")+p+'%</span><span>'+(n.puerto==="San Antonio"?"Termina":"Zarpa")+' en ~'+h+' h</span></div></div>'; }
+    else if(st.k==="proxima"||st.k==="programada"||st.k==="anunciada"){ var hh=Math.max(0,Math.round((fechaRef(n)-now)/36e5));
+      prog='<div class="prog-l"><span>'+(hh<72?"En ~"+hh+" h":"En ~"+Math.round(hh/24)+" días")+'</span><span></span></div>'; }
+    else if(st.k==="faena"){ prog='<div class="prog-l"><span>Sin hora de zarpe en la planificación publicada</span><span></span></div>'; }
+    return '<article class="card" id="nave-'+id+'"><div class="c-head"><div><h3 class="c-name">'+esc(n.nave)+'</h3><div class="c-where">'+donde+'</div></div>'+
+      '<span class="pill st-'+st.k+'">'+st.t+'</span></div>'+times+prog+body+
+      (imo?'<div class="imo-note"><span class="diamond"><b>'+imo+'</b></span><span>Carga IMO. En STI, todo IMO líquido salvo clase 3 se despacha y recepciona a gancho.</span></div>':'')+
+    '</article>';
+  }).join("")+(list.length>vis.length?'<button class="chip more" id="ver-mas">Mostrar '+(list.length-vis.length)+' naves más</button>':'');
+  var vm=document.getElementById("ver-mas"); if(vm) vm.addEventListener("click",function(){ verMas=true; renderCards(Date.now()); });
+}
+
+/* ---------- Fuentes ---------- */
+function fuente(nombre, ok, detalle, link){
+  return '<div class="src"><header><strong>'+esc(nombre)+'</strong><span class="pill '+(ok===true?"st-faena":ok===false?"st-programada":"st-terminada")+'">'+(ok===true?"Al día":ok===false?"Revisar":"Sin datos")+'</span></header><p>'+detalle+'</p>'+(link?'<p>'+link+'</p>':'')+'</div>';
+}
+function renderSources(){
+  var now=Date.now(), h=[];
+  var s=S.sti, v=S.vap, c=S.cond;
+  h.push(s ? fuente("STI · San Antonio", now-D(s.publicacion_fecha||s.generado)<2.5*DAY,
+      "Programación publicada el "+esc(s.publicacion)+". Revisión automática diaria a las 14:40 y 16:40; última revisión "+fmtT(s.generado)+".",
+      '<a href="https://www.stiport.com/sti_en_linea/programacion_naves/index.php" target="_blank" rel="noopener">Ver en STI</a>')
+    : fuente("STI · San Antonio", null, "Aún no hay datos."));
+  h.push(v ? fuente("Puerto Valparaíso · TPS / TPV", now-D(v.publicacion_fecha)<2*DAY,
+      "Planificación naviera publicada el "+esc(v.publicacion)+". Se actualiza cuando el equipo sube el PDF del día a la carpeta <b>valparaiso</b> del repositorio.",
+      '<a href="https://www.puertovalparaiso.cl/planificacion_naviera" target="_blank" rel="noopener">Descargar PDF en EPV</a> · <a href="'+CFG.repo+'/upload/main/valparaiso" target="_blank" rel="noopener">Subir PDF</a>')
+    : fuente("Puerto Valparaíso · TPS / TPV", null, "Aún no hay datos. Sube el PDF de planificación a la carpeta valparaiso."));
+  h.push(c ? fuente("Condición de puertos", now-D(c.generado)<7*36e5,
+      "Pronóstico de oleaje y viento frente a cada puerto ("+esc(c.fuente)+"), actualizado cada 3 horas. Referencial: la condición oficial la determina la Capitanía de Puerto.",
+      '<a href="https://www.directemar.cl" target="_blank" rel="noopener">Autoridad Marítima (Directemar)</a>')
+    : fuente("Condición de puertos", null, "Sin lectura todavía. Se actualiza cada 3 horas."));
+  document.getElementById("sources").innerHTML=h.join("");
+}
+
+function render(){
+  var now=Date.now();
+  renderCond(); renderKpis(now); renderGantt(now); renderCards(now); renderSources();
+}
+
+/* ---------- Interacción ---------- */
+function setPort(p){
+  S.port=p; verMas=false;
+  document.querySelectorAll("[data-port]").forEach(function(x){x.setAttribute("aria-pressed",String(x.getAttribute("data-port")===p));});
+  render();
+}
+document.getElementById("q").addEventListener("input",function(e){ S.q=e.target.value; verMas=false; renderCards(Date.now()); });
+document.querySelectorAll("[data-port]").forEach(function(b){ b.addEventListener("click",function(){
+  setPort(b.getAttribute("data-port"));
+  var tag=b.getAttribute("data-port")==="San Antonio"?"san-antonio":b.getAttribute("data-port")==="Valparaíso"?"valparaiso":"";
+  try{ history.replaceState(null,"",tag?"#"+tag:location.pathname); }catch(e){}
+});});
+document.querySelectorAll("[data-st]").forEach(function(b){ b.addEventListener("click",function(){
+  S.st=b.getAttribute("data-st"); verMas=false;
+  document.querySelectorAll("[data-st]").forEach(function(x){x.setAttribute("aria-pressed",String(x===b));}); renderCards(Date.now()); });});
+document.getElementById("f-imo").addEventListener("click",function(){ S.imo=!S.imo; this.setAttribute("aria-pressed",String(S.imo)); renderCards(Date.now()); });
+document.getElementById("gantt").addEventListener("click",function(e){
+  var b=e.target.closest(".g-bar"); if(!b) return;
+  if(!document.getElementById("nave-"+b.dataset.id)){ document.getElementById("s-all").click(); S.q=""; document.getElementById("q").value=""; verMas=true; renderCards(Date.now()); }
+  var c=document.getElementById("nave-"+b.dataset.id); if(!c) return;
+  c.scrollIntoView({behavior:"smooth",block:"start"}); c.classList.add("flash"); setTimeout(function(){c.classList.remove("flash");},1600);
+});
+
+/* ---------- Carga ---------- */
+Promise.all([cargar("sti.json"),cargar("valparaiso.json"),cargar("condicion.json")]).then(function(r){
+  S.sti=r[0]; S.vap=r[1]; S.cond=r[2];
+  S.naves=[].concat(S.sti?S.sti.naves:[], S.vap?S.vap.naves:[]);
+  var partes=[];
+  if(S.sti) partes.push("STI del "+S.sti.publicacion);
+  if(S.vap) partes.push("Valparaíso del "+S.vap.publicacion.slice(0,10));
+  if(S.sti && S.sti.dolar) partes.push('Dólar obs. <span class="num">$'+S.sti.dolar.toLocaleString("es-CL",{minimumFractionDigits:2})+'</span>');
+  document.getElementById("stamp").innerHTML=partes.length?partes.join(" · "):"No se pudieron cargar los datos.";
+  if(!S.naves.length) document.getElementById("cards").innerHTML='<div class="empty">No se pudieron cargar los datos de naves. Revisa tu conexión y recarga la página.</div>';
+  var hsh=location.hash.replace("#","");
+  if(hsh==="san-antonio") setPort("San Antonio"); else if(hsh==="valparaiso") setPort("Valparaíso"); else render();
+  if(hsh==="condicion") document.getElementById("condicion").scrollIntoView();
+});
+setInterval(function(){ if(S.naves.length) render(); },60000);
+</script>
+</body>
+</html>
