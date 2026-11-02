@@ -1,76 +1,10 @@
 {
- "generado": "2026-11-01T16:45:00-03:00",
+ "generado": "2026-11-02T14:43:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Sabado 31 Octubre 2026",
- "publicacion_fecha": "2026-10-31T00:00:00-03:00",
- "dolar": 993.22,
+ "publicacion": "Lunes 02 de Noviembre 2026",
+ "publicacion_fecha": "2026-11-02T00:00:00-03:00",
+ "dolar": 992.66,
  "naves": [
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "1",
-   "nave": "MSC VIRGO",
-   "eta": "2026-10-29T22:00:00-03:00",
-   "atraque": "2026-10-29T22:00:00-03:00",
-   "inicio": "2026-10-29T23:00:00-03:00",
-   "termino": "2026-10-31T23:59:00-03:00",
-   "descarga": {
-    "total": 2504,
-    "reefer": 80,
-    "mty": 377,
-    "imo": 41
-   },
-   "embarque": {
-    "total": 338,
-    "reefer": 27,
-    "mty": 0,
-    "imo": 0
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "2",
-   "nave": "MAERSK ACADIA",
-   "eta": "2026-10-30T06:00:00-03:00",
-   "atraque": "2026-10-30T06:00:00-03:00",
-   "inicio": "2026-10-30T08:00:00-03:00",
-   "termino": "2026-10-31T05:00:00-03:00",
-   "descarga": {
-    "total": 389,
-    "reefer": 271,
-    "mty": 52,
-    "imo": 0
-   },
-   "embarque": {
-    "total": 573,
-    "reefer": 8,
-    "mty": 285,
-    "imo": 0
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "2",
-   "nave": "SEASPAN EMPIRE",
-   "eta": "2026-10-31T06:00:00-03:00",
-   "atraque": "2026-10-31T06:00:00-03:00",
-   "inicio": "2026-10-31T08:00:00-03:00",
-   "termino": "2026-11-01T13:00:00-03:00",
-   "descarga": {
-    "total": 773,
-    "reefer": 73,
-    "mty": 367,
-    "imo": 14
-   },
-   "embarque": {
-    "total": 439,
-    "reefer": 22,
-    "mty": 0,
-    "imo": 6
-   }
-  },
   {
    "puerto": "San Antonio",
    "terminal": "STI",
@@ -90,6 +24,50 @@
     "total": 900,
     "reefer": 8,
     "mty": 745,
+    "imo": 0
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "1",
+   "nave": "MAERSK SALINA",
+   "eta": "2026-11-03T06:00:00-03:00",
+   "atraque": "2026-11-03T06:00:00-03:00",
+   "inicio": "2026-11-03T08:00:00-03:00",
+   "termino": "2026-11-04T12:00:00-03:00",
+   "descarga": {
+    "total": 961,
+    "reefer": 16,
+    "mty": 102,
+    "imo": 26
+   },
+   "embarque": {
+    "total": 0,
+    "reefer": 0,
+    "mty": 0,
+    "imo": 0
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "POLAR CHILE",
+   "eta": "2026-11-03T13:00:00-03:00",
+   "atraque": "2026-11-03T13:00:00-03:00",
+   "inicio": "2026-11-03T15:00:00-03:00",
+   "termino": "2026-11-04T20:00:00-03:00",
+   "descarga": {
+    "total": 879,
+    "reefer": 50,
+    "mty": 421,
+    "imo": 23
+   },
+   "embarque": {
+    "total": 0,
+    "reefer": 0,
+    "mty": 0,
     "imo": 0
    }
   }
