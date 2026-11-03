@@ -1,32 +1,10 @@
 {
- "generado": "2026-11-02T16:44:00-03:00",
+ "generado": "2026-11-03T14:43:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Lunes 02 de Noviembre 2026",
- "publicacion_fecha": "2026-11-02T00:00:00-03:00",
- "dolar": 992.66,
+ "publicacion": "Martes 03 de Noviembre 2026",
+ "publicacion_fecha": "2026-11-03T00:00:00-03:00",
+ "dolar": 981.82,
  "naves": [
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "1",
-   "nave": "BEIJING",
-   "eta": "2026-10-31T23:59:00-03:00",
-   "atraque": "2026-10-31T23:59:00-03:00",
-   "inicio": "2026-11-01T01:00:00-03:00",
-   "termino": "2026-11-03T04:00:00-03:00",
-   "descarga": {
-    "total": 1547,
-    "reefer": 70,
-    "mty": 186,
-    "imo": 68
-   },
-   "embarque": {
-    "total": 900,
-    "reefer": 8,
-    "mty": 745,
-    "imo": 0
-   }
-  },
   {
    "puerto": "San Antonio",
    "terminal": "STI",
@@ -35,7 +13,7 @@
    "eta": "2026-11-03T06:00:00-03:00",
    "atraque": "2026-11-03T06:00:00-03:00",
    "inicio": "2026-11-03T08:00:00-03:00",
-   "termino": "2026-11-04T12:00:00-03:00",
+   "termino": "2026-11-04T13:00:00-03:00",
    "descarga": {
     "total": 961,
     "reefer": 16,
@@ -57,7 +35,7 @@
    "eta": "2026-11-03T13:00:00-03:00",
    "atraque": "2026-11-03T13:00:00-03:00",
    "inicio": "2026-11-03T15:00:00-03:00",
-   "termino": "2026-11-04T20:00:00-03:00",
+   "termino": "2026-11-04T16:00:00-03:00",
    "descarga": {
     "total": 879,
     "reefer": 50,
@@ -65,9 +43,53 @@
     "imo": 23
    },
    "embarque": {
-    "total": 0,
-    "reefer": 0,
-    "mty": 0,
+    "total": 266,
+    "reefer": 4,
+    "mty": 12,
+    "imo": 4
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "1",
+   "nave": "MSC JULIETA",
+   "eta": "2026-11-04T14:00:00-03:00",
+   "atraque": "2026-11-04T14:00:00-03:00",
+   "inicio": "2026-11-04T15:30:00-03:00",
+   "termino": "2026-11-06T22:00:00-03:00",
+   "descarga": {
+    "total": 1729,
+    "reefer": 90,
+    "mty": 143,
+    "imo": 53
+   },
+   "embarque": {
+    "total": 1420,
+    "reefer": 159,
+    "mty": 137,
+    "imo": 16
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "WAN HAI A17",
+   "eta": "2026-11-05T04:00:00-03:00",
+   "atraque": "2026-11-05T04:00:00-03:00",
+   "inicio": "2026-11-05T08:00:00-03:00",
+   "termino": "2026-11-06T13:00:00-03:00",
+   "descarga": {
+    "total": 774,
+    "reefer": 6,
+    "mty": 110,
+    "imo": 14
+   },
+   "embarque": {
+    "total": 320,
+    "reefer": 71,
+    "mty": 33,
     "imo": 0
    }
   }
