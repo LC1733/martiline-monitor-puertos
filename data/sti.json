@@ -1,9 +1,9 @@
 {
- "generado": "2026-11-03T16:44:00-03:00",
+ "generado": "2026-11-04T14:43:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Martes 03 de Noviembre 2026",
- "publicacion_fecha": "2026-11-03T00:00:00-03:00",
- "dolar": 981.82,
+ "publicacion": "Miercoles 04 de Noviembre 2026",
+ "publicacion_fecha": "2026-11-04T00:00:00-03:00",
+ "dolar": 980.59,
  "naves": [
   {
    "puerto": "San Antonio",
@@ -13,7 +13,7 @@
    "eta": "2026-11-03T06:00:00-03:00",
    "atraque": "2026-11-03T06:00:00-03:00",
    "inicio": "2026-11-03T08:00:00-03:00",
-   "termino": "2026-11-04T13:00:00-03:00",
+   "termino": "2026-11-04T15:00:00-03:00",
    "descarga": {
     "total": 961,
     "reefer": 16,
@@ -35,7 +35,7 @@
    "eta": "2026-11-03T13:00:00-03:00",
    "atraque": "2026-11-03T13:00:00-03:00",
    "inicio": "2026-11-03T15:00:00-03:00",
-   "termino": "2026-11-04T16:00:00-03:00",
+   "termino": "2026-11-04T20:00:00-03:00",
    "descarga": {
     "total": 879,
     "reefer": 50,
@@ -54,10 +54,10 @@
    "terminal": "STI",
    "sitio": "1",
    "nave": "MSC JULIETA",
-   "eta": "2026-11-04T14:00:00-03:00",
-   "atraque": "2026-11-04T14:00:00-03:00",
-   "inicio": "2026-11-04T15:30:00-03:00",
-   "termino": "2026-11-06T22:00:00-03:00",
+   "eta": "2026-11-04T16:00:00-03:00",
+   "atraque": "2026-11-04T16:00:00-03:00",
+   "inicio": "2026-11-04T17:00:00-03:00",
+   "termino": "2026-11-06T23:59:00-03:00",
    "descarga": {
     "total": 1729,
     "reefer": 90,
@@ -79,7 +79,7 @@
    "eta": "2026-11-05T04:00:00-03:00",
    "atraque": "2026-11-05T04:00:00-03:00",
    "inicio": "2026-11-05T08:00:00-03:00",
-   "termino": "2026-11-06T13:00:00-03:00",
+   "termino": "2026-11-06T12:00:00-03:00",
    "descarga": {
     "total": 774,
     "reefer": 6,
@@ -91,6 +91,28 @@
     "reefer": 71,
     "mty": 33,
     "imo": 0
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "SEASPAN EMISSARY",
+   "eta": "2026-11-06T13:00:00-03:00",
+   "atraque": "2026-11-06T13:00:00-03:00",
+   "inicio": "2026-11-06T14:00:00-03:00",
+   "termino": "2026-11-07T13:00:00-03:00",
+   "descarga": {
+    "total": 406,
+    "reefer": 276,
+    "mty": 75,
+    "imo": 0
+   },
+   "embarque": {
+    "total": 346,
+    "reefer": 22,
+    "mty": 105,
+    "imo": 9
    }
   }
  ]
