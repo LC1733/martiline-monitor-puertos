@@ -1,54 +1,10 @@
 {
- "generado": "2026-11-04T16:44:00-03:00",
+ "generado": "2026-11-05T14:43:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Miercoles 04 de Noviembre 2026",
- "publicacion_fecha": "2026-11-04T00:00:00-03:00",
- "dolar": 980.59,
+ "publicacion": "Jueves 05 de Noviembre 2026",
+ "publicacion_fecha": "2026-11-05T00:00:00-03:00",
+ "dolar": 970.95,
  "naves": [
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "1",
-   "nave": "MAERSK SALINA",
-   "eta": "2026-11-03T06:00:00-03:00",
-   "atraque": "2026-11-03T06:00:00-03:00",
-   "inicio": "2026-11-03T08:00:00-03:00",
-   "termino": "2026-11-04T15:00:00-03:00",
-   "descarga": {
-    "total": 961,
-    "reefer": 16,
-    "mty": 102,
-    "imo": 26
-   },
-   "embarque": {
-    "total": 0,
-    "reefer": 0,
-    "mty": 0,
-    "imo": 0
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "2",
-   "nave": "POLAR CHILE",
-   "eta": "2026-11-03T13:00:00-03:00",
-   "atraque": "2026-11-03T13:00:00-03:00",
-   "inicio": "2026-11-03T15:00:00-03:00",
-   "termino": "2026-11-04T20:00:00-03:00",
-   "descarga": {
-    "total": 879,
-    "reefer": 50,
-    "mty": 421,
-    "imo": 23
-   },
-   "embarque": {
-    "total": 266,
-    "reefer": 4,
-    "mty": 12,
-    "imo": 4
-   }
-  },
   {
    "puerto": "San Antonio",
    "terminal": "STI",
@@ -113,6 +69,50 @@
     "reefer": 22,
     "mty": 105,
     "imo": 9
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "1",
+   "nave": "YANTIAN I",
+   "eta": "2026-11-07T12:00:00-03:00",
+   "atraque": "2026-11-07T12:00:00-03:00",
+   "inicio": "2026-11-07T15:00:00-03:00",
+   "termino": "2026-11-09T07:00:00-03:00",
+   "descarga": {
+    "total": 1349,
+    "reefer": 57,
+    "mty": 201,
+    "imo": 28
+   },
+   "embarque": {
+    "total": 394,
+    "reefer": 38,
+    "mty": 125,
+    "imo": 0
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "DUSSELDORF EXPRESS",
+   "eta": "2026-11-07T14:00:00-03:00",
+   "atraque": "2026-11-07T14:00:00-03:00",
+   "inicio": "2026-11-07T15:00:00-03:00",
+   "termino": "2026-11-08T16:00:00-03:00",
+   "descarga": {
+    "total": 560,
+    "reefer": 82,
+    "mty": 32,
+    "imo": 15
+   },
+   "embarque": {
+    "total": 651,
+    "reefer": 38,
+    "mty": 0,
+    "imo": 11
    }
   }
  ]
