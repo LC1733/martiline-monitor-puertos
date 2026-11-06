@@ -1,9 +1,9 @@
 {
- "generado": "2026-11-05T16:44:00-03:00",
+ "generado": "2026-11-06T14:43:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Jueves 05 de Noviembre 2026",
- "publicacion_fecha": "2026-11-05T00:00:00-03:00",
- "dolar": 970.95,
+ "publicacion": "Viernes 06 de Noviembre 2026",
+ "publicacion_fecha": "2026-11-06T00:00:00-03:00",
+ "dolar": 970.94,
  "naves": [
   {
    "puerto": "San Antonio",
@@ -13,7 +13,7 @@
    "eta": "2026-11-04T16:00:00-03:00",
    "atraque": "2026-11-04T16:00:00-03:00",
    "inicio": "2026-11-04T17:00:00-03:00",
-   "termino": "2026-11-06T23:59:00-03:00",
+   "termino": "2026-11-07T13:00:00-03:00",
    "descarga": {
     "total": 1729,
     "reefer": 90,
@@ -31,33 +31,11 @@
    "puerto": "San Antonio",
    "terminal": "STI",
    "sitio": "2",
-   "nave": "WAN HAI A17",
-   "eta": "2026-11-05T04:00:00-03:00",
-   "atraque": "2026-11-05T04:00:00-03:00",
-   "inicio": "2026-11-05T08:00:00-03:00",
-   "termino": "2026-11-06T12:00:00-03:00",
-   "descarga": {
-    "total": 774,
-    "reefer": 6,
-    "mty": 110,
-    "imo": 14
-   },
-   "embarque": {
-    "total": 320,
-    "reefer": 71,
-    "mty": 33,
-    "imo": 0
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "2",
    "nave": "SEASPAN EMISSARY",
-   "eta": "2026-11-06T13:00:00-03:00",
-   "atraque": "2026-11-06T13:00:00-03:00",
-   "inicio": "2026-11-06T14:00:00-03:00",
-   "termino": "2026-11-07T13:00:00-03:00",
+   "eta": "2026-11-06T07:00:00-03:00",
+   "atraque": "2026-11-06T07:00:00-03:00",
+   "inicio": "2026-11-06T08:00:00-03:00",
+   "termino": "2026-11-07T06:00:00-03:00",
    "descarga": {
     "total": 406,
     "reefer": 276,
@@ -76,10 +54,10 @@
    "terminal": "STI",
    "sitio": "1",
    "nave": "YANTIAN I",
-   "eta": "2026-11-07T12:00:00-03:00",
-   "atraque": "2026-11-07T12:00:00-03:00",
+   "eta": "2026-11-07T14:00:00-03:00",
+   "atraque": "2026-11-07T14:00:00-03:00",
    "inicio": "2026-11-07T15:00:00-03:00",
-   "termino": "2026-11-09T07:00:00-03:00",
+   "termino": "2026-11-09T06:00:00-03:00",
    "descarga": {
     "total": 1349,
     "reefer": 57,
@@ -98,10 +76,10 @@
    "terminal": "STI",
    "sitio": "2",
    "nave": "DUSSELDORF EXPRESS",
-   "eta": "2026-11-07T14:00:00-03:00",
-   "atraque": "2026-11-07T14:00:00-03:00",
-   "inicio": "2026-11-07T15:00:00-03:00",
-   "termino": "2026-11-08T16:00:00-03:00",
+   "eta": "2026-11-07T07:00:00-03:00",
+   "atraque": "2026-11-07T07:00:00-03:00",
+   "inicio": "2026-11-07T08:00:00-03:00",
+   "termino": "2026-11-08T07:00:00-03:00",
    "descarga": {
     "total": 560,
     "reefer": 82,
