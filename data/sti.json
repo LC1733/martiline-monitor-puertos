@@ -1,9 +1,9 @@
 {
- "generado": "2026-11-09T16:44:00-03:00",
+ "generado": "2026-11-10T14:42:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Lunes 09 Noviembre 2026",
- "publicacion_fecha": "2026-11-09T00:00:00-03:00",
- "dolar": 979.88,
+ "publicacion": "Martes 10 Noviembre 2026",
+ "publicacion_fecha": "2026-11-10T00:00:00-03:00",
+ "dolar": 969.8,
  "naves": [
   {
    "puerto": "San Antonio",
@@ -13,7 +13,7 @@
    "eta": "2026-11-10T06:00:00-03:00",
    "atraque": "2026-11-10T06:00:00-03:00",
    "inicio": "2026-11-10T08:00:00-03:00",
-   "termino": "2026-11-11T21:00:00-03:00",
+   "termino": "2026-11-11T06:00:00-03:00",
    "descarga": {
     "total": 716,
     "reefer": 11,
@@ -76,15 +76,15 @@
    "terminal": "STI",
    "sitio": "2",
    "nave": "KOTA CEPAT",
-   "eta": "2026-11-11T21:00:00-03:00",
-   "atraque": "2026-11-11T21:00:00-03:00",
-   "inicio": "2026-11-11T23:00:00-03:00",
-   "termino": "2026-11-13T07:00:00-03:00",
+   "eta": "2026-11-12T06:00:00-03:00",
+   "atraque": "2026-11-12T06:00:00-03:00",
+   "inicio": "2026-11-12T08:00:00-03:00",
+   "termino": "2026-11-13T16:00:00-03:00",
    "descarga": {
-    "total": 0,
-    "reefer": 0,
-    "mty": 0,
-    "imo": 0
+    "total": 503,
+    "reefer": 7,
+    "mty": 67,
+    "imo": 20
    },
    "embarque": {
     "total": 391,
