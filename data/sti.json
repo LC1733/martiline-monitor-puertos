@@ -1,8 +1,8 @@
 {
- "generado": "2026-11-11T16:44:00-03:00",
+ "generado": "2026-11-12T14:43:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Miercoles 11 Noviembre 2026",
- "publicacion_fecha": "2026-11-11T00:00:00-03:00",
+ "publicacion": "Jueves 12 Noviembre 2026",
+ "publicacion_fecha": "2026-11-12T00:00:00-03:00",
  "dolar": 969.8,
  "naves": [
   {
@@ -91,6 +91,50 @@
     "reefer": 137,
     "mty": 0,
     "imo": 0
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "01",
+   "nave": "MAERSK EVERGLADES",
+   "eta": "2026-11-13T05:00:00-03:00",
+   "atraque": "2026-11-13T05:00:00-03:00",
+   "inicio": "2026-11-13T08:00:00-03:00",
+   "termino": "2026-11-14T08:00:00-03:00",
+   "descarga": {
+    "total": 582,
+    "reefer": 250,
+    "mty": 252,
+    "imo": 1
+   },
+   "embarque": {
+    "total": 511,
+    "reefer": 21,
+    "mty": 150,
+    "imo": 12
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "LORI",
+   "eta": "2026-11-14T06:00:00-03:00",
+   "atraque": "2026-11-14T06:00:00-03:00",
+   "inicio": "2026-11-14T08:00:00-03:00",
+   "termino": "2026-11-15T13:00:00-03:00",
+   "descarga": {
+    "total": 483,
+    "reefer": 76,
+    "mty": 40,
+    "imo": 11
+   },
+   "embarque": {
+    "total": 1457,
+    "reefer": 63,
+    "mty": 0,
+    "imo": 13
    }
   }
  ]
