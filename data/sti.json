@@ -1,102 +1,14 @@
 {
- "generado": "2026-11-12T16:44:00-03:00",
+ "generado": "2026-11-13T14:42:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Jueves 12 Noviembre 2026",
- "publicacion_fecha": "2026-11-12T00:00:00-03:00",
- "dolar": 969.8,
+ "publicacion": "Viernes 13 Noviembre 2026",
+ "publicacion_fecha": "2026-11-13T00:00:00-03:00",
+ "dolar": 992.48,
  "naves": [
   {
    "puerto": "San Antonio",
    "terminal": "STI",
    "sitio": "1",
-   "nave": "MAERSK TOKYO",
-   "eta": "2026-11-10T06:00:00-03:00",
-   "atraque": "2026-11-10T06:00:00-03:00",
-   "inicio": "2026-11-10T08:00:00-03:00",
-   "termino": "2026-11-11T06:00:00-03:00",
-   "descarga": {
-    "total": 716,
-    "reefer": 11,
-    "mty": 17,
-    "imo": 52
-   },
-   "embarque": {
-    "total": 1263,
-    "reefer": 316,
-    "mty": 683,
-    "imo": 3
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "2",
-   "nave": "POLAR ARGENTINA",
-   "eta": "2026-11-10T10:00:00-03:00",
-   "atraque": "2026-11-10T10:00:00-03:00",
-   "inicio": "2026-11-10T12:00:00-03:00",
-   "termino": "2026-11-11T20:00:00-03:00",
-   "descarga": {
-    "total": 1123,
-    "reefer": 37,
-    "mty": 692,
-    "imo": 26
-   },
-   "embarque": {
-    "total": 497,
-    "reefer": 7,
-    "mty": 0,
-    "imo": 7
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "1",
-   "nave": "AS SABINE",
-   "eta": "2026-11-11T23:00:00-03:00",
-   "atraque": "2026-11-11T23:00:00-03:00",
-   "inicio": "2026-11-11T23:59:00-03:00",
-   "termino": "2026-11-12T15:00:00-03:00",
-   "descarga": {
-    "total": 610,
-    "reefer": 24,
-    "mty": 0,
-    "imo": 0
-   },
-   "embarque": {
-    "total": 0,
-    "reefer": 0,
-    "mty": 0,
-    "imo": 0
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "2",
-   "nave": "KOTA CEPAT",
-   "eta": "2026-11-12T06:00:00-03:00",
-   "atraque": "2026-11-12T06:00:00-03:00",
-   "inicio": "2026-11-12T08:00:00-03:00",
-   "termino": "2026-11-13T16:00:00-03:00",
-   "descarga": {
-    "total": 503,
-    "reefer": 7,
-    "mty": 67,
-    "imo": 20
-   },
-   "embarque": {
-    "total": 391,
-    "reefer": 137,
-    "mty": 0,
-    "imo": 0
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "01",
    "nave": "MAERSK EVERGLADES",
    "eta": "2026-11-13T05:00:00-03:00",
    "atraque": "2026-11-13T05:00:00-03:00",
@@ -135,6 +47,50 @@
     "reefer": 63,
     "mty": 0,
     "imo": 13
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "1",
+   "nave": "COSCO PACIFIC",
+   "eta": "2026-11-14T12:00:00-03:00",
+   "atraque": "2026-11-14T12:00:00-03:00",
+   "inicio": "2026-11-14T13:00:00-03:00",
+   "termino": "2026-11-16T14:00:00-03:00",
+   "descarga": {
+    "total": 1472,
+    "reefer": 101,
+    "mty": 206,
+    "imo": 25
+   },
+   "embarque": {
+    "total": 1103,
+    "reefer": 19,
+    "mty": 943,
+    "imo": 0
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "MSC ILLINOIS VII",
+   "eta": "2026-11-15T14:00:00-03:00",
+   "atraque": "2026-11-15T14:00:00-03:00",
+   "inicio": "2026-11-15T15:00:00-03:00",
+   "termino": "2026-11-16T13:00:00-03:00",
+   "descarga": {
+    "total": 954,
+    "reefer": 2,
+    "mty": 6,
+    "imo": 24
+   },
+   "embarque": {
+    "total": 2005,
+    "reefer": 543,
+    "mty": 1458,
+    "imo": 0
    }
   }
  ]
