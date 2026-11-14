@@ -1,32 +1,10 @@
 {
- "generado": "2026-11-13T16:45:00-03:00",
+ "generado": "2026-11-14T14:42:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Viernes 13 Noviembre 2026",
- "publicacion_fecha": "2026-11-13T00:00:00-03:00",
+ "publicacion": "Sabado 14 Noviembre 2026",
+ "publicacion_fecha": "2026-11-14T00:00:00-03:00",
  "dolar": 992.48,
  "naves": [
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "1",
-   "nave": "MAERSK EVERGLADES",
-   "eta": "2026-11-13T05:00:00-03:00",
-   "atraque": "2026-11-13T05:00:00-03:00",
-   "inicio": "2026-11-13T08:00:00-03:00",
-   "termino": "2026-11-14T08:00:00-03:00",
-   "descarga": {
-    "total": 582,
-    "reefer": 250,
-    "mty": 252,
-    "imo": 1
-   },
-   "embarque": {
-    "total": 511,
-    "reefer": 21,
-    "mty": 150,
-    "imo": 12
-   }
-  },
   {
    "puerto": "San Antonio",
    "terminal": "STI",
