@@ -1,32 +1,10 @@
 {
- "generado": "2026-11-15T16:44:00-03:00",
+ "generado": "2026-11-16T14:43:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Sabado 14 Noviembre 2026",
- "publicacion_fecha": "2026-11-14T00:00:00-03:00",
- "dolar": 992.48,
+ "publicacion": "Lunes 16 Noviembre 2026",
+ "publicacion_fecha": "2026-11-16T00:00:00-03:00",
+ "dolar": 999.1,
  "naves": [
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "2",
-   "nave": "LORI",
-   "eta": "2026-11-14T06:00:00-03:00",
-   "atraque": "2026-11-14T06:00:00-03:00",
-   "inicio": "2026-11-14T08:00:00-03:00",
-   "termino": "2026-11-15T13:00:00-03:00",
-   "descarga": {
-    "total": 483,
-    "reefer": 76,
-    "mty": 40,
-    "imo": 11
-   },
-   "embarque": {
-    "total": 1457,
-    "reefer": 63,
-    "mty": 0,
-    "imo": 13
-   }
-  },
   {
    "puerto": "San Antonio",
    "terminal": "STI",
@@ -35,7 +13,7 @@
    "eta": "2026-11-14T12:00:00-03:00",
    "atraque": "2026-11-14T12:00:00-03:00",
    "inicio": "2026-11-14T13:00:00-03:00",
-   "termino": "2026-11-16T14:00:00-03:00",
+   "termino": "2026-11-16T15:30:00-03:00",
    "descarga": {
     "total": 1472,
     "reefer": 101,
@@ -57,7 +35,7 @@
    "eta": "2026-11-15T14:00:00-03:00",
    "atraque": "2026-11-15T14:00:00-03:00",
    "inicio": "2026-11-15T15:00:00-03:00",
-   "termino": "2026-11-16T13:00:00-03:00",
+   "termino": "2026-11-16T23:59:00-03:00",
    "descarga": {
     "total": 954,
     "reefer": 2,
@@ -69,6 +47,50 @@
     "reefer": 543,
     "mty": 1458,
     "imo": 0
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "1",
+   "nave": "REN JIAN",
+   "eta": "2026-11-17T06:00:00-03:00",
+   "atraque": "2026-11-17T06:00:00-03:00",
+   "inicio": "2026-11-17T08:00:00-03:00",
+   "termino": "2026-11-18T23:00:00-03:00",
+   "descarga": {
+    "total": 80,
+    "reefer": 8,
+    "mty": 0,
+    "imo": 2
+   },
+   "embarque": {
+    "total": 1171,
+    "reefer": 236,
+    "mty": 637,
+    "imo": 0
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "POLAR PERU",
+   "eta": "2026-11-17T20:00:00-03:00",
+   "atraque": "2026-11-17T20:00:00-03:00",
+   "inicio": "2026-11-17T23:00:00-03:00",
+   "termino": "2026-11-19T15:00:00-03:00",
+   "descarga": {
+    "total": 792,
+    "reefer": 67,
+    "mty": 254,
+    "imo": 35
+   },
+   "embarque": {
+    "total": 882,
+    "reefer": 6,
+    "mty": 200,
+    "imo": 7
    }
   }
  ]
