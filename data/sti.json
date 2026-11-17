@@ -1,54 +1,10 @@
 {
- "generado": "2026-11-16T16:44:00-03:00",
+ "generado": "2026-11-17T14:43:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Lunes 16 Noviembre 2026",
- "publicacion_fecha": "2026-11-16T00:00:00-03:00",
- "dolar": 999.1,
+ "publicacion": "Martes 17 Noviembre 2026",
+ "publicacion_fecha": "2026-11-17T00:00:00-03:00",
+ "dolar": 1001.17,
  "naves": [
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "1",
-   "nave": "COSCO PACIFIC",
-   "eta": "2026-11-14T12:00:00-03:00",
-   "atraque": "2026-11-14T12:00:00-03:00",
-   "inicio": "2026-11-14T13:00:00-03:00",
-   "termino": "2026-11-16T15:30:00-03:00",
-   "descarga": {
-    "total": 1472,
-    "reefer": 101,
-    "mty": 206,
-    "imo": 25
-   },
-   "embarque": {
-    "total": 1103,
-    "reefer": 19,
-    "mty": 943,
-    "imo": 0
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "2",
-   "nave": "MSC ILLINOIS VII",
-   "eta": "2026-11-15T14:00:00-03:00",
-   "atraque": "2026-11-15T14:00:00-03:00",
-   "inicio": "2026-11-15T15:00:00-03:00",
-   "termino": "2026-11-16T23:59:00-03:00",
-   "descarga": {
-    "total": 954,
-    "reefer": 2,
-    "mty": 6,
-    "imo": 24
-   },
-   "embarque": {
-    "total": 2005,
-    "reefer": 543,
-    "mty": 1458,
-    "imo": 0
-   }
-  },
   {
    "puerto": "San Antonio",
    "terminal": "STI",
@@ -57,7 +13,7 @@
    "eta": "2026-11-17T06:00:00-03:00",
    "atraque": "2026-11-17T06:00:00-03:00",
    "inicio": "2026-11-17T08:00:00-03:00",
-   "termino": "2026-11-18T23:00:00-03:00",
+   "termino": "2026-11-18T22:00:00-03:00",
    "descarga": {
     "total": 80,
     "reefer": 8,
@@ -79,7 +35,7 @@
    "eta": "2026-11-17T20:00:00-03:00",
    "atraque": "2026-11-17T20:00:00-03:00",
    "inicio": "2026-11-17T23:00:00-03:00",
-   "termino": "2026-11-19T15:00:00-03:00",
+   "termino": "2026-11-19T14:00:00-03:00",
    "descarga": {
     "total": 792,
     "reefer": 67,
@@ -91,6 +47,72 @@
     "reefer": 6,
     "mty": 200,
     "imo": 7
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "1",
+   "nave": "WAN HAI 711",
+   "eta": "2026-11-19T07:00:00-03:00",
+   "atraque": "2026-11-19T07:00:00-03:00",
+   "inicio": "2026-11-19T08:00:00-03:00",
+   "termino": "2026-11-20T22:00:00-03:00",
+   "descarga": {
+    "total": 0,
+    "reefer": 0,
+    "mty": 0,
+    "imo": 0
+   },
+   "embarque": {
+    "total": 1159,
+    "reefer": 578,
+    "mty": 335,
+    "imo": 0
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "SEASPAN EMPIRE",
+   "eta": "2026-11-19T21:00:00-03:00",
+   "atraque": "2026-11-19T21:00:00-03:00",
+   "inicio": "2026-11-19T23:00:00-03:00",
+   "termino": "2026-11-21T06:00:00-03:00",
+   "descarga": {
+    "total": 477,
+    "reefer": 240,
+    "mty": 150,
+    "imo": 0
+   },
+   "embarque": {
+    "total": 1008,
+    "reefer": 7,
+    "mty": 750,
+    "imo": 57
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "3",
+   "nave": "CONCON TRADER",
+   "eta": "2026-11-18T20:00:00-03:00",
+   "atraque": "2026-11-18T20:00:00-03:00",
+   "inicio": "2026-11-18T21:00:00-03:00",
+   "termino": "2026-11-19T20:00:00-03:00",
+   "descarga": {
+    "total": 0,
+    "reefer": 0,
+    "mty": 0,
+    "imo": 0
+   },
+   "embarque": {
+    "total": 0,
+    "reefer": 0,
+    "mty": 0,
+    "imo": 0
    }
   }
  ]
