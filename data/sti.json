@@ -1,54 +1,10 @@
 {
- "generado": "2026-11-18T16:44:00-03:00",
+ "generado": "2026-11-19T14:43:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Miercoles 18 noviembre 2026",
- "publicacion_fecha": "2026-11-18T00:00:00-03:00",
- "dolar": 996.68,
+ "publicacion": "Jueves 19 noviembre 2026",
+ "publicacion_fecha": "2026-11-19T00:00:00-03:00",
+ "dolar": 1002.07,
  "naves": [
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "1",
-   "nave": "REN JIAN",
-   "eta": "2026-11-17T06:00:00-03:00",
-   "atraque": "2026-11-17T06:00:00-03:00",
-   "inicio": "2026-11-17T08:00:00-03:00",
-   "termino": "2026-11-18T22:00:00-03:00",
-   "descarga": {
-    "total": 80,
-    "reefer": 8,
-    "mty": 0,
-    "imo": 2
-   },
-   "embarque": {
-    "total": 1171,
-    "reefer": 236,
-    "mty": 637,
-    "imo": 0
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "2",
-   "nave": "POLAR PERU",
-   "eta": "2026-11-17T20:00:00-03:00",
-   "atraque": "2026-11-17T20:00:00-03:00",
-   "inicio": "2026-11-17T23:00:00-03:00",
-   "termino": "2026-11-19T14:00:00-03:00",
-   "descarga": {
-    "total": 792,
-    "reefer": 67,
-    "mty": 254,
-    "imo": 35
-   },
-   "embarque": {
-    "total": 882,
-    "reefer": 6,
-    "mty": 200,
-    "imo": 7
-   }
-  },
   {
    "puerto": "San Antonio",
    "terminal": "STI",
@@ -79,7 +35,7 @@
    "eta": "2026-11-19T21:00:00-03:00",
    "atraque": "2026-11-19T21:00:00-03:00",
    "inicio": "2026-11-19T23:00:00-03:00",
-   "termino": "2026-11-21T06:00:00-03:00",
+   "termino": "2026-11-21T04:00:00-03:00",
    "descarga": {
     "total": 477,
     "reefer": 240,
@@ -113,6 +69,50 @@
     "reefer": 0,
     "mty": 0,
     "imo": 0
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "MAERSK REDWOOD",
+   "eta": "2026-11-21T06:00:00-03:00",
+   "atraque": "2026-11-21T06:00:00-03:00",
+   "inicio": "2026-11-21T08:00:00-03:00",
+   "termino": "2026-11-22T13:00:00-03:00",
+   "descarga": {
+    "total": 0,
+    "reefer": 0,
+    "mty": 0,
+    "imo": 0
+   },
+   "embarque": {
+    "total": 932,
+    "reefer": 71,
+    "mty": 0,
+    "imo": 16
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "1",
+   "nave": "MSC GIUSY",
+   "eta": "2026-11-21T06:00:00-03:00",
+   "atraque": "2026-11-21T06:00:00-03:00",
+   "inicio": "2026-11-21T08:00:00-03:00",
+   "termino": "2026-11-23T07:00:00-03:00",
+   "descarga": {
+    "total": 1750,
+    "reefer": 27,
+    "mty": 265,
+    "imo": 37
+   },
+   "embarque": {
+    "total": 870,
+    "reefer": 53,
+    "mty": 568,
+    "imo": 9
    }
   }
  ]
