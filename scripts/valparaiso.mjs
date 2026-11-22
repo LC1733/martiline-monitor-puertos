@@ -23,7 +23,7 @@ async function paginas(file) {
   const out = [];
   for (let i = 1; i <= doc.numPages; i++) {
     const tc = await (await doc.getPage(i)).getTextContent();
-    out.push(tc.items.filter((it) => it.str.trim()).map((it) => ({ x: it.transform[4], y: it.transform[5], s: it.str.trim() })));
+    out.push(tc.items.filter((it) => it.str.trim()).map((it) => ({ x: it.transform[4], y: it.transform[5], w: it.width || 0, s: it.str.trim() })));
   }
   return out;
 }
@@ -41,7 +41,13 @@ function filas(items) {
 function grilla(items, pubY, pubM) {
   const cab = items.filter((i) => /^Sitio\s*\d+$/i.test(i.s)).map((i) => {
     const n = +i.s.match(/\d+/)[0];
-    return { n, left: i.x - 34, right: i.x + 52, center: i.x + 11, y: i.y };
+    return { n, mid: i.x + (i.w || 22) / 2, center: i.x + 11, y: i.y };
+  }).sort((a, b) => a.mid - b.mid);
+  // Límites de columna = punto medio entre encabezados vecinos. Así un nombre largo centrado
+  // (p. ej. "RIO DE JANEIRO EXPRESS") que desborda su celda sigue asignado a su sitio.
+  cab.forEach((c, k) => {
+    c.left = k ? (cab[k - 1].mid + c.mid) / 2 : -Infinity;
+    c.right = k < cab.length - 1 ? (c.mid + cab[k + 1].mid) / 2 : Infinity;
   });
   if (!cab.length) throw new Error('No se encontró la grilla de sitios en la página 1');
   const yCab = Math.min(...cab.map((c) => c.y));
@@ -55,7 +61,7 @@ function grilla(items, pubY, pubM) {
 
   const visitas = [];
   for (const c of cab) {
-    const en = cuerpo.filter((i) => i.x >= c.left && i.x < c.right).sort((a, b) => b.y - a.y);
+    const en = cuerpo.filter((i) => { const m = i.x + i.w / 2; return m >= c.left && m < c.right; }).sort((a, b) => b.y - a.y);
     const nombres = en.filter((i) => !esHora(i.s) && !/^LOA\b/i.test(i.s));
     const loas = en.filter((i) => /^LOA\b/i.test(i.s));
     const horas = en.filter((i) => esHora(i.s));
