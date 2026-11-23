@@ -1,76 +1,10 @@
 {
- "generado": "2026-11-22T16:44:00-03:00",
+ "generado": "2026-11-23T14:43:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Sabado 21 noviembre 2026",
- "publicacion_fecha": "2026-11-21T00:00:00-03:00",
- "dolar": 1008.79,
+ "publicacion": "Lunes 23 noviembre 2026",
+ "publicacion_fecha": "2026-11-23T00:00:00-03:00",
+ "dolar": 1017.17,
  "naves": [
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "1",
-   "nave": "WAN HAI 711",
-   "eta": "2026-11-19T07:00:00-03:00",
-   "atraque": "2026-11-19T07:00:00-03:00",
-   "inicio": "2026-11-19T08:00:00-03:00",
-   "termino": "2026-11-20T22:00:00-03:00",
-   "descarga": {
-    "total": 0,
-    "reefer": 0,
-    "mty": 0,
-    "imo": 0
-   },
-   "embarque": {
-    "total": 1159,
-    "reefer": 578,
-    "mty": 335,
-    "imo": 0
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "2",
-   "nave": "SEASPAN EMPIRE",
-   "eta": "2026-11-19T21:00:00-03:00",
-   "atraque": "2026-11-19T21:00:00-03:00",
-   "inicio": "2026-11-19T23:00:00-03:00",
-   "termino": "2026-11-21T04:00:00-03:00",
-   "descarga": {
-    "total": 477,
-    "reefer": 240,
-    "mty": 150,
-    "imo": 0
-   },
-   "embarque": {
-    "total": 1008,
-    "reefer": 7,
-    "mty": 750,
-    "imo": 57
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "2",
-   "nave": "MAERSK REDWOOD",
-   "eta": "2026-11-21T06:00:00-03:00",
-   "atraque": "2026-11-21T06:00:00-03:00",
-   "inicio": "2026-11-21T08:00:00-03:00",
-   "termino": "2026-11-22T13:00:00-03:00",
-   "descarga": {
-    "total": 512,
-    "reefer": 29,
-    "mty": 50,
-    "imo": 7
-   },
-   "embarque": {
-    "total": 932,
-    "reefer": 71,
-    "mty": 0,
-    "imo": 16
-   }
-  },
   {
    "puerto": "San Antonio",
    "terminal": "STI",
@@ -79,7 +13,7 @@
    "eta": "2026-11-21T06:00:00-03:00",
    "atraque": "2026-11-21T06:00:00-03:00",
    "inicio": "2026-11-21T08:00:00-03:00",
-   "termino": "2026-11-23T07:00:00-03:00",
+   "termino": "2026-11-23T14:30:00-03:00",
    "descarga": {
     "total": 1750,
     "reefer": 27,
@@ -101,7 +35,7 @@
    "eta": "2026-11-23T07:00:00-03:00",
    "atraque": "2026-11-23T07:00:00-03:00",
    "inicio": "2026-11-23T08:00:00-03:00",
-   "termino": "2026-11-25T21:00:00-03:00",
+   "termino": "2026-11-25T23:00:00-03:00",
    "descarga": {
     "total": 988,
     "reefer": 3,
@@ -135,6 +69,28 @@
     "reefer": 863,
     "mty": 1821,
     "imo": 0
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "POLAR COLOMBIA",
+   "eta": "2026-11-24T07:00:00-03:00",
+   "atraque": "2026-11-24T07:00:00-03:00",
+   "inicio": "2026-11-24T08:00:00-03:00",
+   "termino": "2026-11-25T16:00:00-03:00",
+   "descarga": {
+    "total": 657,
+    "reefer": 60,
+    "mty": 171,
+    "imo": 36
+   },
+   "embarque": {
+    "total": 768,
+    "reefer": 9,
+    "mty": 200,
+    "imo": 10
    }
   }
  ]
