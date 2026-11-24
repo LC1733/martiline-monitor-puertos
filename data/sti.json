@@ -1,32 +1,10 @@
 {
- "generado": "2026-11-23T16:44:00-03:00",
+ "generado": "2026-11-24T14:42:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Lunes 23 noviembre 2026",
- "publicacion_fecha": "2026-11-23T00:00:00-03:00",
- "dolar": 1017.17,
+ "publicacion": "Martes 24 noviembre 2026",
+ "publicacion_fecha": "2026-11-24T00:00:00-03:00",
+ "dolar": 1017.66,
  "naves": [
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "1",
-   "nave": "MSC GIUSY",
-   "eta": "2026-11-21T06:00:00-03:00",
-   "atraque": "2026-11-21T06:00:00-03:00",
-   "inicio": "2026-11-21T08:00:00-03:00",
-   "termino": "2026-11-23T14:30:00-03:00",
-   "descarga": {
-    "total": 1750,
-    "reefer": 27,
-    "mty": 265,
-    "imo": 37
-   },
-   "embarque": {
-    "total": 870,
-    "reefer": 53,
-    "mty": 568,
-    "imo": 9
-   }
-  },
   {
    "puerto": "San Antonio",
    "terminal": "STI",
@@ -47,28 +25,6 @@
     "reefer": 2047,
     "mty": 693,
     "imo": 8
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "2",
-   "nave": "MSC BRIDGEPORT",
-   "eta": "2026-11-22T14:00:00-03:00",
-   "atraque": "2026-11-22T14:00:00-03:00",
-   "inicio": "2026-11-22T15:00:00-03:00",
-   "termino": "2026-11-23T23:59:00-03:00",
-   "descarga": {
-    "total": 1370,
-    "reefer": 1,
-    "mty": 324,
-    "imo": 21
-   },
-   "embarque": {
-    "total": 2690,
-    "reefer": 863,
-    "mty": 1821,
-    "imo": 0
    }
   },
   {
