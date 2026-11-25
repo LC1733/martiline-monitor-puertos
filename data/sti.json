@@ -1,9 +1,9 @@
 {
- "generado": "2026-11-24T16:44:00-03:00",
+ "generado": "2026-11-25T14:42:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Martes 24 noviembre 2026",
- "publicacion_fecha": "2026-11-24T00:00:00-03:00",
- "dolar": 1017.66,
+ "publicacion": "Miercoles 25 noviembre 2026",
+ "publicacion_fecha": "2026-11-25T00:00:00-03:00",
+ "dolar": 1025.06,
  "naves": [
   {
    "puerto": "San Antonio",
@@ -13,7 +13,7 @@
    "eta": "2026-11-23T07:00:00-03:00",
    "atraque": "2026-11-23T07:00:00-03:00",
    "inicio": "2026-11-23T08:00:00-03:00",
-   "termino": "2026-11-25T23:00:00-03:00",
+   "termino": "2026-11-26T05:30:00-03:00",
    "descarga": {
     "total": 988,
     "reefer": 3,
@@ -35,7 +35,7 @@
    "eta": "2026-11-24T07:00:00-03:00",
    "atraque": "2026-11-24T07:00:00-03:00",
    "inicio": "2026-11-24T08:00:00-03:00",
-   "termino": "2026-11-25T16:00:00-03:00",
+   "termino": "2026-11-25T13:00:00-03:00",
    "descarga": {
     "total": 657,
     "reefer": 60,
@@ -47,6 +47,72 @@
     "reefer": 9,
     "mty": 200,
     "imo": 10
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "1",
+   "nave": "MSC ORSOLA",
+   "eta": "2026-11-26T06:30:00-03:00",
+   "atraque": "2026-11-26T06:30:00-03:00",
+   "inicio": "2026-11-26T08:30:00-03:00",
+   "termino": "2026-11-28T05:30:00-03:00",
+   "descarga": {
+    "total": 2433,
+    "reefer": 28,
+    "mty": 878,
+    "imo": 49
+   },
+   "embarque": {
+    "total": 1944,
+    "reefer": 157,
+    "mty": 220,
+    "imo": 20
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "KOTA MANZANILLO",
+   "eta": "2026-11-25T21:00:00-03:00",
+   "atraque": "2026-11-25T21:00:00-03:00",
+   "inicio": "2026-11-25T23:00:00-03:00",
+   "termino": "2026-11-27T14:00:00-03:00",
+   "descarga": {
+    "total": 778,
+    "reefer": 17,
+    "mty": 122,
+    "imo": 27
+   },
+   "embarque": {
+    "total": 1637,
+    "reefer": 759,
+    "mty": 687,
+    "imo": 0
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "DUSSELDORF EXPRESS",
+   "eta": "2026-11-27T14:00:00-03:00",
+   "atraque": "2026-11-27T14:00:00-03:00",
+   "inicio": "2026-11-27T15:00:00-03:00",
+   "termino": "2026-11-28T13:00:00-03:00",
+   "descarga": {
+    "total": 0,
+    "reefer": 0,
+    "mty": 0,
+    "imo": 0
+   },
+   "embarque": {
+    "total": 660,
+    "reefer": 4,
+    "mty": 283,
+    "imo": 11
    }
   }
  ]
