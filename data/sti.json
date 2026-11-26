@@ -1,63 +1,19 @@
 {
- "generado": "2026-11-25T16:44:00-03:00",
+ "generado": "2026-11-26T14:42:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Miercoles 25 noviembre 2026",
- "publicacion_fecha": "2026-11-25T00:00:00-03:00",
- "dolar": 1025.06,
+ "publicacion": "Jueves 26 noviembre 2026",
+ "publicacion_fecha": "2026-11-26T00:00:00-03:00",
+ "dolar": 1044.08,
  "naves": [
   {
    "puerto": "San Antonio",
    "terminal": "STI",
    "sitio": "1",
-   "nave": "SEASPAN GLORY",
-   "eta": "2026-11-23T07:00:00-03:00",
-   "atraque": "2026-11-23T07:00:00-03:00",
-   "inicio": "2026-11-23T08:00:00-03:00",
-   "termino": "2026-11-26T05:30:00-03:00",
-   "descarga": {
-    "total": 988,
-    "reefer": 3,
-    "mty": 0,
-    "imo": 91
-   },
-   "embarque": {
-    "total": 3877,
-    "reefer": 2047,
-    "mty": 693,
-    "imo": 8
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "2",
-   "nave": "POLAR COLOMBIA",
-   "eta": "2026-11-24T07:00:00-03:00",
-   "atraque": "2026-11-24T07:00:00-03:00",
-   "inicio": "2026-11-24T08:00:00-03:00",
-   "termino": "2026-11-25T13:00:00-03:00",
-   "descarga": {
-    "total": 657,
-    "reefer": 60,
-    "mty": 171,
-    "imo": 36
-   },
-   "embarque": {
-    "total": 768,
-    "reefer": 9,
-    "mty": 200,
-    "imo": 10
-   }
-  },
-  {
-   "puerto": "San Antonio",
-   "terminal": "STI",
-   "sitio": "1",
    "nave": "MSC ORSOLA",
-   "eta": "2026-11-26T06:30:00-03:00",
-   "atraque": "2026-11-26T06:30:00-03:00",
+   "eta": "2026-11-26T07:30:00-03:00",
+   "atraque": "2026-11-26T07:30:00-03:00",
    "inicio": "2026-11-26T08:30:00-03:00",
-   "termino": "2026-11-28T05:30:00-03:00",
+   "termino": "2026-11-28T14:00:00-03:00",
    "descarga": {
     "total": 2433,
     "reefer": 28,
@@ -65,10 +21,10 @@
     "imo": 49
    },
    "embarque": {
-    "total": 1944,
-    "reefer": 157,
-    "mty": 220,
-    "imo": 20
+    "total": 939,
+    "reefer": 94,
+    "mty": 4,
+    "imo": 10
    }
   },
   {
@@ -79,7 +35,7 @@
    "eta": "2026-11-25T21:00:00-03:00",
    "atraque": "2026-11-25T21:00:00-03:00",
    "inicio": "2026-11-25T23:00:00-03:00",
-   "termino": "2026-11-27T14:00:00-03:00",
+   "termino": "2026-11-27T13:00:00-03:00",
    "descarga": {
     "total": 778,
     "reefer": 17,
@@ -98,21 +54,65 @@
    "terminal": "STI",
    "sitio": "2",
    "nave": "DUSSELDORF EXPRESS",
-   "eta": "2026-11-27T14:00:00-03:00",
-   "atraque": "2026-11-27T14:00:00-03:00",
-   "inicio": "2026-11-27T15:00:00-03:00",
-   "termino": "2026-11-28T13:00:00-03:00",
+   "eta": "2026-11-27T15:00:00-03:00",
+   "atraque": "2026-11-27T15:00:00-03:00",
+   "inicio": "2026-11-27T16:00:00-03:00",
+   "termino": "2026-11-28T16:00:00-03:00",
    "descarga": {
-    "total": 0,
-    "reefer": 0,
-    "mty": 0,
-    "imo": 0
+    "total": 429,
+    "reefer": 226,
+    "mty": 126,
+    "imo": 8
    },
    "embarque": {
     "total": 660,
     "reefer": 4,
     "mty": 283,
     "imo": 11
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "1",
+   "nave": "OOCL CHANCAY",
+   "eta": "2026-11-28T15:00:00-03:00",
+   "atraque": "2026-11-28T15:00:00-03:00",
+   "inicio": "2026-11-28T16:00:00-03:00",
+   "termino": "2026-11-30T22:00:00-03:00",
+   "descarga": {
+    "total": 1611,
+    "reefer": 87,
+    "mty": 0,
+    "imo": 55
+   },
+   "embarque": {
+    "total": 2349,
+    "reefer": 961,
+    "mty": 1075,
+    "imo": 0
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "MAERSK ACADIA",
+   "eta": "2026-11-28T17:00:00-03:00",
+   "atraque": "2026-11-28T17:00:00-03:00",
+   "inicio": "2026-11-28T18:00:00-03:00",
+   "termino": "2026-11-29T13:00:00-03:00",
+   "descarga": {
+    "total": 473,
+    "reefer": 59,
+    "mty": 0,
+    "imo": 26
+   },
+   "embarque": {
+    "total": 931,
+    "reefer": 58,
+    "mty": 0,
+    "imo": 22
    }
   }
  ]
