@@ -1,0 +1,24 @@
+name: Vigilancia de salud
+on:
+  schedule:
+    - cron: '50 * * * *'   # cada hora
+  workflow_run:            # y apenas termina cualquier captura, para avisar al instante
+    workflows: ['Condición de puertos', 'Captura STI San Antonio', 'Lectura PDF Valparaíso']
+    types: [completed]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+  issues: write
+  pages: read
+concurrency: salud
+jobs:
+  salud:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with: { node-version: 22 }
+      - run: node scripts/salud.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

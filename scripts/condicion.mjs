@@ -13,10 +13,25 @@ const PUERTOS = [
 const base = (tipo) => (KEY ? `https://customer-${tipo}.open-meteo.com` : `https://${tipo}.open-meteo.com`);
 const q = (o) => new URLSearchParams({ ...o, timezone: 'America/Santiago', forecast_days: '3', ...(KEY ? { apikey: KEY } : {}) });
 
+// Reintenta ante cortes de red o errores 429/5xx de Open-Meteo (3 intentos, espera 10 s y 30 s, timeout 30 s).
 async function json(url) {
-  const r = await fetch(url);
-  if (!r.ok) throw new Error(`HTTP ${r.status} en ${url.split('?')[0]}`);
-  return r.json();
+  const destino = url.split('?')[0];
+  const esperas = [10000, 30000];
+  for (let intento = 1; ; intento++) {
+    try {
+      const r = await fetch(url, { signal: AbortSignal.timeout(30000) });
+      if (r.ok) return r.json();
+      const err = new Error(`HTTP ${r.status}`);
+      err.reintentable = r.status === 429 || r.status >= 500;
+      throw err;
+    } catch (e) {
+      const reintentable = e.reintentable ?? true; // fallas de red / timeout
+      const detalle = e.cause ? ` (${e.cause.code || e.cause.message})` : '';
+      if (!reintentable || intento > esperas.length) throw new Error(`${e.message}${detalle} en ${destino}`);
+      console.warn(`Intento ${intento} falló: ${e.message}${detalle}. Reintentando en ${esperas[intento - 1] / 1000} s…`);
+      await new Promise((ok) => setTimeout(ok, esperas[intento - 1]));
+    }
+  }
 }
 const iso = (t) => { const m = t.match(/(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/); return isoChile(+m[1], +m[2], +m[3], +m[4], +m[5]); };
 const r1 = (v) => (v == null ? null : Math.round(v * 10) / 10);

@@ -14,6 +14,17 @@ Accesos directos: `#san-antonio` · `#valparaiso` · `#condicion`
 | Puerto Valparaíso | Cada vez que se sube el PDF | Manual: el equipo sube el PDF del día |
 | Condición de puertos | Cada 3 horas | Automático (pronóstico Open-Meteo) |
 
+## Vigilancia automática (alertas)
+
+El workflow **Vigilancia de salud** (`scripts/salud.mjs`) corre cada hora y apenas termina cualquier captura. Revisa:
+
+- que cada fuente esté al día (condición cada 3 h, STI diario, PDF de Valparaíso vigente);
+- que los datos tengan contenido (puertos, horas de pronóstico, naves);
+- que ningún workflow esté fallando o desactivado por GitHub;
+- que el panel publicado responda.
+
+Si algo deja de funcionar, por la causa que sea, abre el issue **"⚠️ Monitor de Puertos — alerta de funcionamiento"** mencionando a @LC1733 (llega por correo). Solo vuelve a notificar si cambia el tipo de problema, y **cierra el issue solo** cuando todo se normaliza. La consulta a Open-Meteo reintenta 3 veces antes de dar por fallida una ejecución.
+
 ## Subir la planificación de Valparaíso (30 segundos)
 
 1. Descarga el PDF desde https://www.puertovalparaiso.cl/planificacion_naviera (botón **Planificación PDF**).
