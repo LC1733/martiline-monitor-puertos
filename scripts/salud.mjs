@@ -76,7 +76,7 @@ function revisarDatos() {
 async function revisarWorkflows() {
   const { workflows } = await gh(`/repos/${REPO}/actions/workflows?per_page=50`);
   for (const w of workflows) {
-    if (!w.path.startsWith('.github/workflows/') || w.path.endsWith('salud.yml')) continue;
+    if (w.path.endsWith('salud.yml')) continue; // incluye 'pages build and deployment' (publicación del panel)
     if (w.state !== 'active') { falla(`wf:estado:${w.name}`, `El workflow **${w.name}** está *${w.state}* (GitHub lo desactivó o se apagó a mano). No se va a ejecutar hasta reactivarlo en Actions.`); continue; }
     const { workflow_runs: runs } = await gh(`/repos/${REPO}/actions/workflows/${w.id}/runs?per_page=1&status=completed&branch=main`);
     const r = runs[0];
@@ -87,10 +87,6 @@ async function revisarWorkflows() {
 
 // ---------- 3. Panel publicado ----------
 async function revisarPanel() {
-  try {
-    const b = await gh(`/repos/${REPO}/pages/builds/latest`);
-    if (b.status === 'errored') falla('pages:build', `La última publicación de GitHub Pages falló: ${b.error?.message || 'sin detalle'}.`);
-  } catch (e) { aviso('pages:api', `No se pudo consultar el estado de GitHub Pages (${e.message}).`); }
   try {
     const r = await fetch(PANEL, { signal: AbortSignal.timeout(30000) });
     if (!r.ok) falla('panel:http', `El panel ${PANEL} responde HTTP ${r.status}.`);
