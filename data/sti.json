@@ -1,9 +1,9 @@
 {
- "generado": "2026-11-26T16:44:00-03:00",
+ "generado": "2026-11-27T14:43:00-03:00",
  "fuente": "https://www.stiport.com/sti_en_linea/programacion_naves/index.php",
- "publicacion": "Jueves 26 noviembre 2026",
- "publicacion_fecha": "2026-11-26T00:00:00-03:00",
- "dolar": 1044.08,
+ "publicacion": "Viernes 27 noviembre 2026",
+ "publicacion_fecha": "2026-11-27T00:00:00-03:00",
+ "dolar": 1037.91,
  "naves": [
   {
    "puerto": "San Antonio",
@@ -35,7 +35,7 @@
    "eta": "2026-11-25T21:00:00-03:00",
    "atraque": "2026-11-25T21:00:00-03:00",
    "inicio": "2026-11-25T23:00:00-03:00",
-   "termino": "2026-11-27T13:00:00-03:00",
+   "termino": "2026-11-27T15:30:00-03:00",
    "descarga": {
     "total": 778,
     "reefer": 17,
@@ -113,6 +113,28 @@
     "reefer": 58,
     "mty": 0,
     "imo": 22
+   }
+  },
+  {
+   "puerto": "San Antonio",
+   "terminal": "STI",
+   "sitio": "2",
+   "nave": "MSC VIDISHAR R",
+   "eta": "2026-11-29T16:00:00-03:00",
+   "atraque": "2026-11-29T16:00:00-03:00",
+   "inicio": "2026-11-29T17:00:00-03:00",
+   "termino": "2026-11-30T23:59:00-03:00",
+   "descarga": {
+    "total": 0,
+    "reefer": 0,
+    "mty": 0,
+    "imo": 0
+   },
+   "embarque": {
+    "total": 830,
+    "reefer": 721,
+    "mty": 109,
+    "imo": 0
    }
   }
  ]
